@@ -8,11 +8,12 @@ import { useState } from "react";
 
 // Reactの設計思想などを考えて関数宣言で書く
 // アロー関数で書くと関数なのか定数なのか分かりづらく、パフォーマンスも良くない
+// ただし、トップレベル以外はアロー関数で書く
 export default function Page() {
 	const [inputValue, setInputValue] = useState<string>("");
 	const [submittedValue, setSubmittedValue] = useState<string>("");
 
-	// ボタン押下などのイベントにフックして行う処理はhandleXXXという名前を使うのが一般的
+	// ボタン押下などのイベントにフックして行う処理はhandleXXXという関数名が一般的
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setSubmittedValue(inputValue);
