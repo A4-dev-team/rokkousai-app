@@ -6,6 +6,8 @@ import { useState } from "react";
 // - 部品ごとに分ける
 // - 出来るだけ親コンポーネントが状態を管理し、UIコンポーネントはUIのみを担当するようにする
 
+// Reactの設計思想などを考えて関数宣言で書く
+// アロー関数で書くと関数なのか定数なのか分かりづらく、パフォーマンスも良くない
 export default function Page() {
 	const [inputValue, setInputValue] = useState<string>("");
 	const [submittedValue, setSubmittedValue] = useState<string>("");
@@ -17,7 +19,7 @@ export default function Page() {
 	};
 
 	// onChangeに直接() => setInputValue(e.target.value)と書くこともできるが、
-	// JSXにロジックを書くと見通しが悪くなるので、このような関数を作るべき
+	// JSXにロジックを書くと見通しが悪くなるので、このようなhandleという関数を作るべき
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setInputValue(e.target.value);
 	};
