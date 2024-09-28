@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
+## 起動
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## node_modules更新
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 使用技術
+| 技術           | ドキュメント                                                         |
+|--------------|----------------------------------------------------------------|
+| プログラミング言語    | [TypeScript](https://www.typescriptlang.org/docs/)             |
+| ライブラリ        | [React](https://ja.react.dev/reference/react)                  |
+| フレームワーク      | [NextJS App Router](https://nextjs.org/docs)                   |
+| CSS          | [Tailwind CSS](https://tailwindcss.com/docs/installation)      |
+| コンポーネントライブラリ | [shadcn/ui](https://ui.shadcn.com/docs/components/collapsible) |
+## ディレクトリ構成（重要な部分のみ抜粋）
 
-## Learn More
+```
+.
+├── app
+│   ├── example
+│   │   ├── _components
+│   │   └── page.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components
+│   ├── common
+│   └── ui
+│       └── input.tsx
+├── domain
+│   ├── constants
+│   └── types
+├── lib
+│   └── utils.ts
+├── package-lock.json
+├── package.json
+└── tsconfig.json
 
-To learn more about Next.js, take a look at the following resources:
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 詳細
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- appディレクトリ内のディレクトリの構成通りにルーティングされる。
+    - 例えば、`app/example/page.tsx`は`http://localhost:3000/example` に対応する。
+- /example というページでしか使わないコンポーネントは、`app/example/_components`に配置する。（要はスコープが重要）
 
-## Deploy on Vercel
+詳しくは https://nextjs.org/docs/app/building-your-application/routing を参照。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- componentsディレクトリはアプリケーション全体で使いまわすコンポーネントを配置
+    - common: プロジェクト全体で使いまわすコンポーネントを配置
+    - ui: `npx shadcn@latest add ...`を実行するとここに追加される。 他のファイルでこれらをimportして使うが、ここは触らなくて良い。
+- domainディレクトリはアプリケーション固有の情報を置いておく。
+    - constants: アプリケーション全体で使用することができる定数をここに配置
+    - types: アプリケーション全体で使用することができる型定義をtypesに配置（app/example/page.tsxでしか使用しない型はここに書かない。あくまでも全体で共有されるべき型を置くこと。）
+- libディレクトリはアプリケーション全体で使用することができる便利な関数をおいていく。（基本的に触らなくて良い）
