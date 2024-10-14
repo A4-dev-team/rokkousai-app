@@ -1,7 +1,7 @@
 import type { Metadata } from "next"; //TypeScriptの型をインポート
 import localFont from "next/font/local"; //ローカルに保存されたフォントを使用
 import "./globals.css"; //グローバルなスタイルを定義
-//import styles from "./layout.module.css"; // レイアウト用CSS
+import styles from "./layout.module.css"; // レイアウト用CSS
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
