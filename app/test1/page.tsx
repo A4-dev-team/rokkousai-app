@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default function Home() {
+export default function Scene() {
   const keywords = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   const sceneClassNameColors = [
     'bg-red-500',
@@ -18,7 +18,7 @@ export default function Home() {
   ];
 
   const [input, setInput] = useState<string>('');
-  const [result, setResult] = useState<string>('');
+  const [result, setResult] = useState<boolean | null>(null);
   const [currentScene, setCurrentScene] = useState<number>(0);
   const [showNext, setShowNext] = useState<boolean>(false);
 
@@ -28,17 +28,17 @@ export default function Home() {
     </div>
   ));  
 
-  const checkKeyword = () => {
+  const handlecheckKeyword = () => {
     if (input === '') { 
-      setResult(''); 
+      setResult(null); 
       return; 
     }
 
     if (input === keywords[currentScene]) {
-      setResult('正解！');
+      setResult(true);
       setShowNext(true);
     } else {
-      setResult('間違い！');
+      setResult(false);
       setShowNext(false);
     }
     setInput('');
@@ -48,7 +48,7 @@ export default function Home() {
     if (currentScene < scenes.length - 1) {
       setCurrentScene(prev => prev + 1);
       setShowNext(false);
-      setResult('');
+      setResult(null);
     }
   };
 
@@ -67,11 +67,14 @@ export default function Home() {
           placeholder="キーワードを入力"
         />
         <button className="w-full p-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-200"
-          onClick={checkKeyword}
+          onClick={handlecheckKeyword}
         >
           送信
         </button>
-        {result && <div className="mt-4 text-lg text-center text-gray-700">{result}</div>}
+        {result !== null && (<div className="mt-4 text-lg text-center text-gray-700">
+          {result ? '正解！' : '間違い!'}
+          </div>
+        )}
         <div className="mt-4">
           {showNext && (
             <button className="w-full p-2 bg-green-600 text-white rounded hover:bg-green-700 transition duration-200"
