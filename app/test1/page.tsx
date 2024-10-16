@@ -1,90 +1,76 @@
 "use client";
 
-import { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
-export default function Scene() {
-  const keywords = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-  const sceneClassNameColors = [
-    'bg-red-500',
-    'bg-orange-500',
-    'bg-yellow-500',
-    'bg-green-500',
-    'bg-cyan-500',
-    'bg-blue-500',
-    'bg-indigo-500',
-    'bg-purple-500',
-    'bg-violet-500',
-    'bg-purple-700'
-  ];
+type SceneType = {
+	sceneId: number;
+	keyword: string;
+	color: string;
+};
 
-  const [input, setInput] = useState<string>('');
-  const [result, setResult] = useState<boolean | null>(null);
-  const [currentScene, setCurrentScene] = useState<number>(0);
-  const [showNext, setShowNext] = useState<boolean>(false);
+const scenes: SceneType[] = [
+	{ sceneId: 1, keyword: "1", color: "bg-red-500" },
+	{ sceneId: 2, keyword: "2", color: "bg-orange-500" },
+	{ sceneId: 3, keyword: "3", color: "bg-yellow-500" },
+	{ sceneId: 4, keyword: "4", color: "bg-green-500" },
+	{ sceneId: 5, keyword: "5", color: "bg-cyan-500" },
+	{ sceneId: 6, keyword: "6", color: "bg-blue-500" },
+	{ sceneId: 7, keyword: "7", color: "bg-indigo-500" },
+	{ sceneId: 8, keyword: "8", color: "bg-purple-500" },
+	{ sceneId: 9, keyword: "9", color: "bg-violet-500" },
+	{ sceneId: 10, keyword: "10", color: "bg-purple-700" },
+];
 
-  const scenes = sceneClassNameColors.map((color, index) => (
-    <div key={index} className={`h-screen w-screen flex items-center justify-center ${color} text-white rounded-lg`}>
-      Scene {index + 1}
-    </div>
-  ));  
+export default function Page() {
+	const [currentSceneId, setCurrentSceneId] = useState<number>(1);
+	const [input, setInput] = useState<string>("");
+	const [result, setResult] = useState<boolean>();
 
-  const handlecheckKeyword = () => {
-    if (input === '') { 
-      setResult(null); 
-      return; 
-    }
+	const currentScene = scenes.find((scene) => scene.sceneId === currentSceneId);
+	const showNext = result && currentSceneId < scenes.length - 1;
 
-    if (input === keywords[currentScene]) {
-      setResult(true);
-      setShowNext(true);
-    } else {
-      setResult(false);
-      setShowNext(false);
-    }
-    setInput('');
-  };
+	const handleCheckKeyword = () => {
+		setResult(input === currentScene?.keyword);
+	};
 
-  const handleNext = () => {
-    if (currentScene < scenes.length - 1) {
-      setCurrentScene(prev => prev + 1);
-      setShowNext(false);
-      setResult(null);
-    }
-  };
+	const handleNext = () => {
+		if (currentSceneId < scenes.length - 1) {
+			setCurrentSceneId((prev) => prev + 1);
+			setInput("");
+			setResult(undefined);
+		}
+	};
 
-  return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="absolute inset-0">
-        {scenes[currentScene]}
-      </div>
-      <div className="bg-white shadow-lg rounded-lg p-8 w-80 z-10 mb-4 relative">
-        <h1 className="text-2xl font-bold text-center mb-4">キーワードチェック</h1>
-        <div className="text-center mb-4">キーワードを入力してください</div>
-        <input className='border border-gray-300 rounded p-2 w-full mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400'
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="キーワードを入力"
-        />
-        <button className="w-full p-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-200"
-          onClick={handlecheckKeyword}
-        >
-          送信
-        </button>
-        {result !== null && (<div className="mt-4 text-lg text-center text-gray-700">
-          {result ? '正解！' : '間違い!'}
-          </div>
-        )}
-        <div className="mt-4">
-          {showNext && (
-            <button className="w-full p-2 bg-green-600 text-white rounded hover:bg-green-700 transition duration-200"
-              onClick={handleNext}
-            >
-              次へ
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<div
+			className={`h-screen flex flex-col justify-center items-center ${currentScene?.color}`}
+		>
+			<h1 className="text-4xl">Scene {currentSceneId}</h1>
+			<div className="flex flex-col gap-y-4 bg-white shadow-lg rounded-lg p-8 w-80">
+				<h1 className="text-2xl font-bold text-center">キーワードチェック</h1>
+				<div className="text-center">キーワードを入力してください</div>
+				<Input
+					type="text"
+					value={input}
+					onChange={(e) => setInput(e.target.value)}
+					placeholder="キーワードを入力"
+				/>
+				<Button type="button" onClick={handleCheckKeyword}>
+					送信
+				</Button>
+				<div className="text-lg text-center text-gray-700">
+					{result === undefined
+						? "入力してください"
+						: result
+							? "正解"
+							: "不正解"}
+				</div>
+				<Button type="button" disabled={!showNext} onClick={handleNext}>
+					次へ
+				</Button>
+			</div>
+		</div>
+	);
 }
