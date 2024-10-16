@@ -20,7 +20,6 @@ export default function Scene() {
   const [input, setInput] = useState<string>('');
   const [result, setResult] = useState<boolean | null>(null);
   const [currentScene, setCurrentScene] = useState<number>(0);
-  const [showNext, setShowNext] = useState<boolean>(false);
 
   const scenes = sceneClassNameColors.map((color, index) => (
     <div key={index} className={`h-screen w-screen flex items-center justify-center ${color} text-white rounded-lg`}>
@@ -36,10 +35,8 @@ export default function Scene() {
 
     if (input === keywords[currentScene]) {
       setResult(true);
-      setShowNext(true);
     } else {
       setResult(false);
-      setShowNext(false);
     }
     setInput('');
   };
@@ -47,7 +44,6 @@ export default function Scene() {
   const handleNext = () => {
     if (currentScene < scenes.length - 1) {
       setCurrentScene(prev => prev + 1);
-      setShowNext(false);
       setResult(null);
     }
   };
@@ -76,7 +72,7 @@ export default function Scene() {
           </div>
         )}
         <div className="mt-4">
-          {showNext && (
+          {result === true && currentScene < scenes.length - 1 && (
             <button className="w-full p-2 bg-green-600 text-white rounded hover:bg-green-700 transition duration-200"
               onClick={handleNext}
             >
