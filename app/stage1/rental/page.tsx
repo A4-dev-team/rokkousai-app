@@ -18,7 +18,7 @@ export default function Page() {
           return prevPage;
         }
       });
-    }, 30000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
