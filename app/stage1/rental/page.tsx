@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import Scene1 from './_components/Scene1';
-import Scene2 from './_components/Scene2';
-import Scene3 from './_components/Scene3';
+import View1 from './_components/View1';
+import View2 from './_components/View2';
+import View3 from './_components/View3';
 
-export default function Home() {
+export default function Page() {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const totalPages = 3;
 
@@ -15,26 +15,27 @@ export default function Home() {
         if (prevPage + 1 < totalPages) {
           return prevPage + 1;
         } else {
-          clearInterval(interval);
           return prevPage;
         }
       });
-    }, 5000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, []);
 
   const renderPage = () => {
     if (currentPage === 0) {
-      return <Scene1 />;
-    } else if (currentPage === 1) {
-      return <Scene2 />;
-    } else if (currentPage === 2) {
-      return <Scene3 />;
-    } else {
-      return <Scene1 />;
+      return <View1 />;
     }
+    if (currentPage === 1) {
+      return <View2 />;
+    }
+    if (currentPage === 2) {
+      return <View3 />;
+    }
+    return <View1 />;
   };
+  
   
 
   return (
