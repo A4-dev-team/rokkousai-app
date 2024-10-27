@@ -11,17 +11,14 @@ export default function Page() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentPage(prevPage => {
-        if (prevPage + 1 < totalPages) {
-          return prevPage + 1;
-        } else {
-          return prevPage;
-        }
-      });
+      setCurrentPage(prevPage => 
+        prevPage < totalPages - 1 ? prevPage + 1 : prevPage
+      );
     }, 5000);
-
+  
     return () => clearInterval(interval);
   }, []);
+  
 
   const renderPage = () => {
     if (currentPage === 0) {
