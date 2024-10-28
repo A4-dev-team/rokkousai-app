@@ -1,43 +1,29 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import View1 from './_components/View1';
-import View2 from './_components/View2';
-import View3 from './_components/View3';
+import React, { useState, useEffect } from "react";
+import View1 from "./_components/View1";
+import View2 from "./_components/View2";
+import View3 from "./_components/View3";
 
 export default function Page() {
-  const [currentPage, setCurrentPage] = useState<number>(0);
-  const totalPages = 3;
+	const [currentPage, setCurrentPage] = useState<number>(1);
+	const totalPages = 3;
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentPage(prevPage => 
-        prevPage < totalPages - 1 ? prevPage + 1 : prevPage
-      );
-    }, 5000);
-  
-    return () => clearInterval(interval);
-  }, []);
-  
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCurrentPage((prevPage) => {
+				return prevPage < totalPages ? prevPage + 1 : prevPage;
+			});
+		}, 5000);
 
-  const renderPage = () => {
-    if (currentPage === 0) {
-      return <View1 />;
-    }
-    if (currentPage === 1) {
-      return <View2 />;
-    }
-    if (currentPage === 2) {
-      return <View3 />;
-    }
-    return <View1 />;
-  };
-  
-  
+		return () => clearInterval(interval);
+	}, []);
 
-  return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      {renderPage()}
-    </div>
-  );
+	return currentPage === 1 ? (
+		<View1 />
+	) : currentPage === 2 ? (
+		<View2 />
+	) : currentPage === 3 ? (
+		<View3 />
+	) : null;
 }
