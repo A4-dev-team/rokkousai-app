@@ -15,8 +15,8 @@ export default function RootLayout({
 		<html lang="ja">
 			<body className="flex h-screen overflow-hidden">
 				<SideMenu />
-				<main className="ml-52 flex-1 p-5 flex justify-center h-full">
-					<div className="rounded-xl shadow-lg text-center max-w-md w-full mx-auto">
+				<main className="flex justify-center h-full p-5 flex-1">
+					<div className="max-w-md w-full rounded-xl shadow-lg text-center">
 						{children}
 					</div>
 				</main>

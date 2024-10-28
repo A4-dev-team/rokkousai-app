@@ -2,7 +2,7 @@ import React from "react";
 
 export function SideMenu() {
 	return (
-		<aside className="flex flex-col fixed top-0 left-0 w-52 h-full p-5 gap-4 bg-gray-800 text-white">
+		<aside className="flex flex-col w-52 h-full p-5 gap-4 bg-gray-800 text-white">
 			<h2>MENU</h2>
 			<ul>
 				<li>
