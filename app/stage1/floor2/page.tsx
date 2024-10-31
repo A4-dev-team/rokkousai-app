@@ -1,4 +1,5 @@
-// page.tsx
+"use client";
+
 import React from 'react';
 import View1 from './_components/View1';
 

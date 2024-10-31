@@ -15,7 +15,7 @@ export default function Page() {
       isAutoSwitching && setCurrentPage(prevPage => 
         prevPage < totalPages - 1 ? prevPage + 1 : prevPage
       );
-    }, 5000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [isAutoSwitching]);
