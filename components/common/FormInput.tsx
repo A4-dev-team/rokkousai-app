@@ -1,39 +1,41 @@
-"use client";
-
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
+// NOTE: 親は必ずClient Component
 export function FormInput({
-	title,
+	placeholder,
 	onSubmit,
-}: { title: string; onSubmit: (value: string) => void }) {
+}: { placeholder: string; onSubmit: (value: string) => void }) {
 	const [input, setInput] = useState<string>("");
 
-	const handleInputKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setInput(e.target.value);
 	};
 
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		onSubmit(input);
+	};
+
 	return (
-		<div
-			className="border border-gray-700 shadow-lg rounded-lg p-8 w-80 mb-4"
-			style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}
+		<form
+			className="flex flex-col gap-4 bg-gray-400 bg-opacity-70 shadow-xl rounded-xl border-0 p-8 w-80"
+			onSubmit={handleSubmit}
 		>
-			<h1 className="text-2xl font-bold text-center mb-4 text-white">
-				{title}
-			</h1>
-			<input
-				className="border border-gray-300 rounded-full p-2 w-full mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+			<Input
+				className="bg-white rounded-full placeholder:text-gray-400 px-4"
 				type="text"
 				value={input}
-				onChange={handleInputKeyword}
-				placeholder=""
+				onChange={handleInputChange}
+				placeholder={placeholder}
 			/>
-			<button
-				type="button"
-				className="w-full p-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-200"
-				onClick={() => onSubmit(input)}
+			<Button
+				type="submit"
+				className="bg-blue-600 text-white hover:bg-blue-700"
 			>
-				送信
-			</button>
-		</div>
+				決定
+			</Button>
+		</form>
 	);
 }
