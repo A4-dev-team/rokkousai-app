@@ -3,7 +3,7 @@ import { OneLineTypeWriter } from "@/components/common/OneLineTypeWriter";
 import { ScrollableChatWindow } from "@/components/common/ScrollableChatWindow";
 
 const word =
-	"ここに長い文章を追加して、スクロールできるようにします。あいうえおかきくけこさしすせそたちつてとなにぬねの";
+	"ここに長い文章を追加して、スクロールできるようにします。どこの部屋に行きたいの？？";
 
 export default function View1({
 	setCurrentPage,
