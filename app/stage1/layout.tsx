@@ -21,7 +21,7 @@ const menuItems = [
 	},
 	{
 		title: "大家に話を聞きにいく",
-		href: "/stage1/owner",
+		href: "/stage1/owner/scene-1",
 	},
 	{
 		title: "SHINDAI HUB 賃貸",

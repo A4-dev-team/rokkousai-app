@@ -1,17 +1,20 @@
+"use client";
 import { FormInput } from "@/components/common/FormInput";
 import { OneLineTypeWriter } from "@/components/common/OneLineTypeWriter";
 import { ScrollableChatWindow } from "@/components/common/ScrollableChatWindow";
+import { constant } from "@/domain/constant";
+import { useRouter } from "next/navigation";
 
 const word =
 	"ここに長い文章を追加して、スクロールできるようにします。どこの部屋に行きたいの？？";
 
-export default function View1({
-	setCurrentPage,
-}: {
-	setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-}): JSX.Element {
+export function View1(): JSX.Element {
+	const router = useRouter();
 	const handleSubmit = (value: string) => {
-		if (value === "302") setCurrentPage(2);
+		if (value === "302") {
+			const token = constant.TOKEN.STAGE1_302;
+			router.push(`/stage1/owner/scene-2?token=${token}`);
+		}
 	};
 
 	return (

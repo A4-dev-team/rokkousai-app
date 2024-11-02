@@ -1,15 +1,20 @@
+"use client";
 import { CircleDialog } from "@/components/common/CircleDialog";
 import { DarkOverlay } from "@/components/common/DarkOverlay";
+import { useGetTokenizedRoute } from "@/hooks/useGetTokenizedRoute";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const View2 = ({
-	setCurrentPage,
-}: { setCurrentPage: React.Dispatch<React.SetStateAction<number>> }) => {
+export function View2() {
+	const router = useRouter();
+	const { getTokenizedRoute } = useGetTokenizedRoute();
+	const pushUrl = getTokenizedRoute("/stage1/owner/scene-3");
+
 	useEffect(() => {
-		const timeoutID = setTimeout(() => setCurrentPage(3), 5000);
+		const timeoutID = setTimeout(() => router.push(pushUrl), 3000);
 
 		return () => clearTimeout(timeoutID);
-	}, [setCurrentPage]);
+	}, [router, pushUrl]);
 
 	return (
 		<div className="h-full flex justify-center items-center">
@@ -22,6 +27,4 @@ const View2 = ({
 			</CircleDialog>
 		</div>
 	);
-};
-
-export default View2;
+}

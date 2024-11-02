@@ -1,7 +1,6 @@
 "use client";
-
+import { useGetTokenizedRoute } from "@/hooks/useGetTokenizedRoute";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import React from "react";
 
 interface SideMenuProps {
@@ -14,12 +13,7 @@ interface SideMenuProps {
 
 export function SideMenu(props: SideMenuProps) {
 	const { stageName, menuItems } = props;
-	const searchParams = useSearchParams();
-
-	const token = searchParams.get("token");
-	const buildLink = (href: string) => {
-		return token ? `${href}?token=${token}` : href;
-	};
+	const { getTokenizedRoute } = useGetTokenizedRoute();
 
 	return (
 		<aside className="flex flex-col w-64 h-full p-6 gap-6 bg-gray-900 text-white shadow-lg">
@@ -37,7 +31,7 @@ export function SideMenu(props: SideMenuProps) {
 								key={item.href}
 								className="flex items-center gap-2 text-gray-400 hover:text-white transition duration-150"
 							>
-								<Link href={buildLink(item.href)}>{item.title}</Link>
+								<Link href={getTokenizedRoute(item.href)}>{item.title}</Link>
 							</li>
 						))}
 					</ul>
