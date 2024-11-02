@@ -1,6 +1,6 @@
 import { ScrollableChatWindow } from "@/components/common/ScrollableChatWindow";
 
-export function View3() {
+export function Scene3() {
 	return (
 		<div className="h-full flex flex-col justify-end">
 			<ScrollableChatWindow>

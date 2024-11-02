@@ -5,7 +5,7 @@ import { useGetTokenizedRoute } from "@/hooks/useGetTokenizedRoute";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export function View2() {
+export function Scene2() {
 	const router = useRouter();
 	const { getTokenizedRoute } = useGetTokenizedRoute();
 	const pushUrl = getTokenizedRoute("/stage1/owner/scene-3");

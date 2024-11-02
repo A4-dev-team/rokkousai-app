@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 const word =
 	"ここに長い文章を追加して、スクロールできるようにします。どこの部屋に行きたいの？？";
 
-export function View1(): JSX.Element {
+export function Scene1(): JSX.Element {
 	const router = useRouter();
 	const handleSubmit = (value: string) => {
 		if (value === "302") {
