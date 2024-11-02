@@ -1,5 +1,9 @@
 import { FormInput } from "@/components/common/FormInput";
+import { OneLineTypeWriter } from "@/components/common/OneLineTypeWriter";
 import { ScrollableChatWindow } from "@/components/common/ScrollableChatWindow";
+
+const word =
+	"ここに長い文章を追加して、スクロールできるようにします。あいうえおかきくけこさしすせそたちつてとなにぬねの";
 
 export default function View1({
 	setCurrentPage,
@@ -13,20 +17,9 @@ export default function View1({
 	return (
 		<div className="h-full flex flex-col justify-end">
 			<ScrollableChatWindow>
-				<p className="text-white text-center font-medium">
-					ここに長い文章を追加して、スクロールできるようにします。
-					<br />
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam
-					lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam
-					viverra nec consectetur ante hendrerit. Donec et mollis dolor.
-					Praesent et diam eget libero egestas mattis sit amet vitae augue.
-				</p>
-				<p className="text-white text-center font-medium">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam
-					lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam
-					viverra nec consectetur ante hendrerit. Donec et mollis dolor.
-					Praesent et diam eget libero egestas mattis sit amet vitae augue.
-				</p>
+				<div className="text-white font-medium">
+					<OneLineTypeWriter word={word} />
+				</div>
 				<div className="flex justify-center mt-6">
 					<FormInput placeholder="部屋番号を入力" onSubmit={handleSubmit} />
 				</div>
