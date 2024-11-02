@@ -1,8 +1,8 @@
-"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
+// NOTE: 親は必ずClient Component
 export function FormInput({
 	placeholder,
 	onSubmit,
