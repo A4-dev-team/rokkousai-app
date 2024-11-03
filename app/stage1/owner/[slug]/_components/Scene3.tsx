@@ -1,4 +1,8 @@
+"use client";
 import { ScrollableChatWindow } from "@/components/common/ScrollableChatWindow";
+import { useGetTokenizedRoute } from "@/hooks/useGetTokenizedRoute";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export function Scene3() {
   return (
