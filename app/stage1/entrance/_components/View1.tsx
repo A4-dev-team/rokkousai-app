@@ -8,7 +8,7 @@ export function View1() {
 				<h1 className="text-3xl text-green-400">
 					<br />
 					<br />
-					誰もいないようだ
+					静かなエントランスだ
 					<br />
 					<br />
 					<br />

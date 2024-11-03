@@ -18,8 +18,14 @@ export function Scene3() {
 	return (
 		<div className="h-full flex flex-col justify-end">
 			<ScrollableChatWindow>
-				<h1 className="text-3xl text-green-400">
+				<h1 className="text-2xl text-green-400">
+					<br />
+					<br />
+					<br />
 					3階から302に行けるようになった
+					<br />
+					<br />
+					<br />
 				</h1>
 			</ScrollableChatWindow>
 		</div>
