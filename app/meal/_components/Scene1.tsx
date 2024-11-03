@@ -4,16 +4,25 @@ import { OneLineTypeWriter } from "@/components/common/OneLineTypeWriter";
 import { ScrollableChatWindow } from "@/components/common/ScrollableChatWindow";
 import { constant } from "@/domain/constant";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-const word =
-	"ここに長い文章を追加して、スクロールできるようにします。存在するか探してあげるよ";
+const word = "ここに長い文章を追加して、スクロールできるようにします。";
+const hint = "ヒント: 正しいキーワードは「かみ食堂」です。";
 
-export function View3(): JSX.Element {
+export function Scene1(): JSX.Element {
 	const router = useRouter();
+	const [error, setError] = useState<string | null>(null);
+
 	const handleSubmit = (value: string) => {
-		if (value === "MEAL") {
-			const token = constant.TOKEN.STAGE1_MEAL;
-			router.push(`/stage1/owner/view-4?token=${token}`);
+		if (value.trim() === "") {
+			return;
+		}
+		if (value === "かみ食堂") {
+			const token = constant.TOKEN.KAMISHOKUDOU;
+			router.push(`/stage2/manager?token=${token}`);
+			setError(null);
+		} else {
+			setError(hint);
 		}
 	};
 
@@ -26,6 +35,7 @@ export function View3(): JSX.Element {
 				<div className="flex justify-center mt-6">
 					<FormInput placeholder="" onSubmit={handleSubmit} />
 				</div>
+				{error && <div className="text-white mt-2">{error}</div>}
 			</ScrollableChatWindow>
 		</div>
 	);
