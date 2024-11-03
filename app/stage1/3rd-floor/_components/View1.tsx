@@ -9,7 +9,7 @@ const View1: React.FC = () => {
           <h1 className="text-white text-4xl mb-8 text-left">
             <br />
             <br />
-            　誰もいないようだ...
+            誰もいないようだ...
             <br />
             <br />
             <br />

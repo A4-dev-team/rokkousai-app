@@ -6,7 +6,8 @@ import { constant } from "@/domain/constant";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const word = "ここに長い文章を追加して、スクロールできるようにします。";
+const word =
+	"ここに長い文章を追加して、スクロールできるようにします。セキュリティの答えは…";
 const hint = "ヒント: 正しいキーワードは「かみ食堂」です。";
 
 export function Scene1(): JSX.Element {
@@ -19,7 +20,7 @@ export function Scene1(): JSX.Element {
 		}
 		if (value === "かみ食堂") {
 			const token = constant.TOKEN.KAMISHOKUDOU;
-			router.push(`/stage2/manager?token=${token}`);
+			router.push("/stage2/manager");
 			setError(null);
 		} else {
 			setError(hint);

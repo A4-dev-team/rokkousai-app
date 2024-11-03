@@ -1,7 +1,11 @@
-import React, { useRef } from "react";
+"use client";
+import { OneLineTypeWriter } from "@/components/common/OneLineTypeWriter";
+import { ScrollableChatWindow } from "@/components/common/ScrollableChatWindow";
 
-const View1: React.FC = () => {
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null); // スクロールコンテナの参照
+export function View1() {
+
+  const word =
+    "ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。ここに長い文章を追加して、スクロールできるようにします。";
 
   return (
     <div className="relative h-screen w-screen flex flex-col items-center justify-end bg-cover bg-center bg-[url('/building.png')]">
@@ -11,7 +15,6 @@ const View1: React.FC = () => {
           {/* テキストを上部に配置 */}
           <h1 className="text-white text-4xl mb-4 text-left"></h1>
           <div
-            ref={scrollContainerRef}
             style={{
               height: "100%",
               overflowY: "scroll",
@@ -122,6 +125,6 @@ const View1: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default View1;

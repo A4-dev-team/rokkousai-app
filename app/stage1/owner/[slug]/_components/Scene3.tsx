@@ -26,7 +26,6 @@ export function Scene3() {
         <p className="text-white text-center" style={{ fontSize: "20px" }}>
           そうね…それくらいなら大丈夫よ。念のため、私も一緒に行くわね。
         </p>
-
         <h1 className="text-3xl text-green-400">
           （主人公は正しい部屋番号を伝え、大家の信頼を得ることができた。302号室へのアクセスが可能になった。）
         </h1>
