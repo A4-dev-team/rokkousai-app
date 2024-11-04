@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const View1: React.FC = () => {
   return (
@@ -7,7 +7,12 @@ const View1: React.FC = () => {
       <div className="relative w-full h-[30%] flex items-start justify-start overflow-hidden p-4">
         <div className="border border-gray-700 p-2 w-full bg-black">
           <h1 className="text-white text-4xl mb-8 text-left">
-            <br /><br />　誰もいないようだ<br /><br /><br />
+            <br />
+            <br />
+            誰もいないようだ...
+            <br />
+            <br />
+            <br />
           </h1>
         </div>
       </div>
