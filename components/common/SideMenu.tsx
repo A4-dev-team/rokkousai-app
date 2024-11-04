@@ -3,6 +3,7 @@ import { useGetTokenizedRoute } from "@/hooks/useGetTokenizedRoute";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FaLock, FaTimes, FaBars } from "react-icons/fa";
+import { VscTriangleRight, VscTriangleDown } from "react-icons/vsc";
 
 interface SideMenuProps {
 	stageName: string;
@@ -16,17 +17,41 @@ interface SideMenuProps {
 const SideMenu: React.FC = () => {
 	const [stages, setStages] = useState<SideMenuProps[]>([]);
 	const [isOpen, setIsOpen] = useState(false); // サイドメニューの表示状態を管理
+	const [expandedStage, setExpandedStage] = useState<number | null>(null); // どのステージが展開されているかを管理
+
 
 	useEffect(() => {
 		// LocalStorageからステージのアクセス権を取得する
 		const initialStages: SideMenuProps[] = [
 			{
-				stageName: 'Stage1',
+				stageName: 'Stage1 「賃貸」',
 				menuItems: [
-					{ title: 'View1', href: '/stage1/view1' },
-					{ title: 'View2', href: '/stage1/view2' },
+					{
+						title: "エントランス",
+						href: "/stage1/entrance",
+					},
+					{
+						title: "2階",
+						href: "/stage1/2nd-floor",
+					},
+					{
+						title: "3階",
+						href: "/stage1/3rd-floor",
+					},
+					{
+						title: "4階",
+						href: "/stage1/4th-floor",
+					},
+					{
+						title: "大家に話を聞きにいく",
+						href: "/stage1/owner/scene-1",
+					},
+					{
+						title: "SHINDAI HUB 賃貸",
+						href: "https://shindaihub-rentalhouse.glide.page/",
+					},
 				],
-				accessible: localStorage.getItem('stage1Accessible') === 'true',
+				accessible: true,
 			},
 			{
 				stageName: 'Stage2',
@@ -47,6 +72,10 @@ const SideMenu: React.FC = () => {
 		];
 		setStages(initialStages);
 	}, []);
+
+	const toggleStage = (index: number) => {
+		setExpandedStage(expandedStage === index ? null : index); // ステージをトグル
+	};
 
 	return (
 		<div className="relative">
@@ -73,10 +102,16 @@ const SideMenu: React.FC = () => {
 					<ul className="space-y-4">
 						{stages.map((stage, index) => (
 							<li key={index} className="group">
-								<div className="flex items-center gap-3 transition duration-200 ease-in-out">
+								<div
+									className="flex items-center gap-3 cursor-pointer transition duration-200 ease-in-out"
+									onClick={() => toggleStage(index)} // ステージをクリックしたときのハンドラ
+								>
 									<span className={`font-semibold ${stage.accessible ? 'text-gray-300 group-hover:text-white' : 'text-gray-500'}`}>
 										{stage.accessible ? (
-											stage.stageName
+											<>
+												{expandedStage === index ? <VscTriangleDown className="inline mr-1"/> : <VscTriangleRight className="inline mr-1" />}
+												{stage.stageName}
+											</>
 										) : (
 											<>
 												<FaLock className="inline mr-1" />
@@ -86,12 +121,12 @@ const SideMenu: React.FC = () => {
 									</span>
 								</div>
 
-								{stage.accessible && (
+								{stage.accessible && expandedStage === index && ( // トグルで展開される子メニュー
 									<ul className="ml-8 mt-2 space-y-3">
 										{stage.menuItems.map((item) => (
 											<li
 												key={item.href}
-												className="flex items-center gap-2 text-gray-400 hover:text-white transition duration-150"
+												className="flex items-center gap-2 text-gray-300 hover:text-white transition duration-150"
 											>
 												<Link href={item.href}>{item.title}</Link>
 											</li>
