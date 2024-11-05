@@ -1,6 +1,6 @@
-import { Scene1 } from "./_components/Scene1";
-import { Scene2 } from "./_components/Scene2";
-import { Scene3 } from "./_components/Scene3";
+import { Scene1 } from "./[slug]/_components/Scene1";
+import { Scene2 } from "./[slug]/_components/Scene2";
+import { Scene3 } from "./[slug]/_components/Scene3";
 
 export default function Page({ params }: { params: { slug: string } }) {
 	if (params.slug === "scene-1") {

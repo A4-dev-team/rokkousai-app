@@ -24,7 +24,7 @@ export function FormInput({
 			onSubmit={handleSubmit}
 		>
 			<Input
-				className="bg-white rounded-full placeholder:text-gray-400 px-4"
+				className="bg-white rounded-full placeholder:text-gray-400 px-4 text-black"
 				type="text"
 				value={input}
 				onChange={handleInputChange}

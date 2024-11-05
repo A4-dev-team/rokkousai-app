@@ -1,49 +1,81 @@
-import React, { useRef } from 'react';
+"use client";
+import { ScrollableChatWindow } from "@/components/common/ScrollableChatWindow";
+import {
+	type DialogueProps,
+	DialogueController,
+} from "@/components/common/DialogueController";
 
-const View1: React.FC = () => {
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null); // スクロールコンテナの参照
+export function View1() {
+	const dialogues: DialogueProps[] = [
+		{
+			type: "text",
+			name: "主人公",
+			text: "こんにちは。突然で申し訳ないのですが、少しお話を伺えますか？",
+		},
+		{ type: "text", name: "住人", text: "うん？大丈夫だけど…" },
+		{
+			type: "text",
+			name: "主人公",
+			text: "私、神戸大学の○○と申します。実は、このマンションに以前住んでいた大学生について少し調べていまして。もし何かご存知でしたら、教えていただきたくて…",
+		},
+		{
+			type: "text",
+			name: "住人",
+			text: "なるほど….僕は、岸（きし）と申します。",
+		},
+		{
+			type: "text",
+			name: "岸",
+			text: "今はフリーターで○○になろうと思って勉強中です。大学生か…そうだなあ…ああ、そういえば妙な挨拶をしてきた子がいたよ。",
+		},
+		{
+			type: "text",
+			name: "主人公",
+			text: "どんなエピソードだったか、もし覚えていらっしゃったら教えていただけませんか？",
+		},
+		{
+			type: "text",
+			name: "岸",
+			text: "僕が『404号室の岸です』って自己紹介したら、その子が『見つかってよかったですね！僕の部屋番号には4が入らないように選んだんですよ』なんて言ってきたんだ。",
+		},
+		{
+			type: "text",
+			name: "主人公",
+			text: "部屋番号に4が入らないように…ですか？",
+		},
+		{
+			type: "text",
+			name: "岸",
+			text: "そうそう。僕も思わず『なんで？』って聞いたら、なんか縁起が悪いとかなんとか言ってたね。面白い子だったけど、そう言われてみるとなんだか印象に残ってて。",
+		},
+		{
+			type: "text",
+			name: "主人公",
+			text: "その大学生…もしかしたら、私が探している人物かもしれません。",
+		},
+		{
+			type: "text",
+			name: "岸",
+			text: "そうなのか？ふむ、確かに彼はちょっと変わっていたけどね…。毎晩遅くに帰ってくることも多かったし、何かに追われているような雰囲気もあったな。",
+		},
+		{
+			type: "text",
+			name: "主人公",
+			text: "ありがとうございます。岸さんの情報が非常に役に立ちました。もしかして、他にその方について覚えていることがあれば教えていただけませんか？",
+		},
+		{ type: "text", name: "岸", text: "いや、これくらいしかないかな…" },
+		{
+			type: "text",
+			name: "主人公",
+			text: "ありがとうございます。すごく助かりました！",
+		},
+	];
 
-  return (
-    <div className="relative h-screen w-screen flex flex-col items-center justify-end bg-cover bg-center bg-[url('/building.png')]">
-      <div className="absolute inset-0 bg-white opacity-50"></div>
-      <div className="relative w-full h-[30%] flex items-start justify-start overflow-y-auto p-4">
-        <div className="border border-gray-700 p-2 bg-black opacity-90">
-          {/* テキストを上部に配置 */}
-          <h1 className="text-white text-4xl mb-4 text-left"></h1>
-          <div 
-            ref={scrollContainerRef}
-            style={{ 
-              height: '100%', 
-              overflowY: 'scroll',
-              paddingRight: '15px',
-              position: 'relative',
-              backgroundColor: 'rgba(0, 0, 0, 0.7)', // スクロールコンテナの背景色を透明度を持たせる
-            }}>
-            <style>{`
-              ::-webkit-scrollbar {
-                display: none; 
-              }
-            `}</style>
-            
-            {/* ここに長い文章が入る */}
-            <p className="text-white text-center" style={{ fontSize: '20px' }}>
-              ここに長い文章を追加して、スクロールできるようにします。<br />
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. 
-              Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec 
-              consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget 
-              libero egestas mattis sit amet vitae augue. 
-            </p>
-            <p className="text-white text-center" style={{ fontSize: '20px' }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. 
-              Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec 
-              consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget 
-              libero egestas mattis sit amet vitae augue. 
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default View1;
+	return (
+		<div className="h-full flex flex-col justify-end">
+			<ScrollableChatWindow>
+				<DialogueController dialogues={dialogues} />
+			</ScrollableChatWindow>
+		</div>
+	);
+}

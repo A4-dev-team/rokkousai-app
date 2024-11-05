@@ -8,7 +8,7 @@ import { useEffect } from "react";
 export function Scene2() {
 	const router = useRouter();
 	const { getTokenizedRoute } = useGetTokenizedRoute();
-	const pushUrl = getTokenizedRoute("/stage1/owner/scene-3");
+	const pushUrl = getTokenizedRoute("/stage2/matumoto/scene-3");
 
 	useEffect(() => {
 		const timeoutID = setTimeout(() => router.push(pushUrl), 3000);
@@ -20,9 +20,9 @@ export function Scene2() {
 		<div className="h-full flex justify-center items-center">
 			<DarkOverlay />
 			<CircleDialog>
-				<h1 className="text-4xl text-center text-yellow-500">
+				<h1 className="text-4xl text-center text-white">
 					Mission
-					<br /> Clear
+					<br /> 「謎の紙を解読せよ」
 				</h1>
 			</CircleDialog>
 		</div>
