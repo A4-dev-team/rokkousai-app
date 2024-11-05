@@ -33,7 +33,7 @@ export const DialogueController: React.FC<DialogueControllerProps> = ({ dialogue
 
         if (currentIndex < dialogues.length - 1) setCurrentIndex(currentIndex + 1);
 
-        if (dialogues[currentIndex].type === "form") {
+        if (dialogues[currentIndex + 1].type === "form") {
             setAccessibleNext(false);
         }
     };
@@ -45,10 +45,15 @@ export const DialogueController: React.FC<DialogueControllerProps> = ({ dialogue
             case "image":
                 return <ImageDialogue type={dialogue.type} name={dialogue.name} text={dialogue.text} imageUrl={dialogue.imageUrl} />;
             case "form":
-                return <FormDialogue type={dialogue.type} name={dialogue.name} text={dialogue.text} form={dialogue.form} />;
+                return <FormDialogue type={dialogue.type} name={dialogue.name} text={dialogue.text} formName={dialogue.formName} formPlaceholder={dialogue.formPlaceholder} answer={dialogue.answer} hint={dialogue.hint} onClear={handleFormClear}/>;
             default:
                 return null;
         }
+    };
+
+    // フォームクリア時に次ボタンを表示可能にする
+    const handleFormClear = () => {
+        setAccessibleNext(true);
     };
 
     return (
