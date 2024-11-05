@@ -43,7 +43,7 @@ export const DialogueController: React.FC<DialogueControllerProps> = ({ dialogue
             case "text":
                 return <TextDialogue type={dialogue.type} name={dialogue.name} text={dialogue.text} />;
             case "image":
-                return <ImageDialogue type={dialogue.type} name={dialogue.name} text={dialogue.text} imageUrl={dialogue.imageUrl} />;
+                return <ImageDialogue type={dialogue.type} name={dialogue.name} text={dialogue.text} imageUrls={dialogue.imageUrls} />;
             case "form":
                 return <FormDialogue type={dialogue.type} name={dialogue.name} text={dialogue.text} formName={dialogue.formName} formPlaceholder={dialogue.formPlaceholder} answer={dialogue.answer} hint={dialogue.hint} onClear={handleFormClear}/>;
             default:
