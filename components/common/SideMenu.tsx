@@ -43,10 +43,6 @@ const SideMenu: React.FC = () => {
 						href: "/stage1/4th-floor",
 					},
 					{
-						title: "大家に話を聞きにいく",
-						href: "/stage1/owner/scene-1",
-					},
-					{
 						title: "SHINDAI HUB 賃貸",
 						href: "https://shindaihub-rentalhouse.glide.page/",
 					},
@@ -69,6 +65,14 @@ const SideMenu: React.FC = () => {
 				],
 				accessible: localStorage.getItem('stage3Accessible') === 'true',
 			},
+			{
+				stageName: 'アイテム',
+				menuItems: [
+					{ title: 'SHINDAI HUB', href: 'https://kobe-uni-hub.vercel.app/' },
+					{ title: 'ヒント用LINE', href: '' },
+				],
+				accessible: true,
+			}
 		];
 		setStages(initialStages);
 	}, []);
@@ -114,6 +118,7 @@ const SideMenu: React.FC = () => {
 											</>
 										) : (
 											<>
+												 {/* TODO:  ロックを解除するためのフォームとロジックの追加 */}
 												<FaLock className="inline mr-1" />
 												{`${stage.stageName} - Locked`}
 											</>
