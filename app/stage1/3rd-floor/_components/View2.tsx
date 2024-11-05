@@ -11,7 +11,7 @@ export function View2() {
         { type: "text", name: "主人公", text: "その封筒はまだお手元にありますか？" },
         { type: "text", name: "安井", text: "ええ、捨てるのも悪い気がして、一応保管していました。部屋の中にありますので、少しお待ちを。" },
         { type: "text", name: "", text: "（安井が部屋に戻り、しばらくして封筒を持ってくる）" },
-        { type: "image", name: "安井", text: "これです。封筒の表には、やけに古びた字体で名前が書かれていて、中には紙が数枚入っていましたよ。", imageUrl: "https://storage.googleapis.com/abehiroshibot/envelope.jpg" },
+        { type: "image", name: "安井", text: "これです。封筒の表には、やけに古びた字体で名前が書かれていて、中には紙が数枚入っていましたよ。", imageUrls: ["https://storage.googleapis.com/abehiroshibot/envelope.jpg"] },
         { type: "text", name: "主人公", text: "本当にありがとうございます。この封筒が、きっと手がかりになるはずです。" },
         { type: "text", name: "", text: "（主人公は安井に礼を言い、封筒の中身を持ち帰り、新たな謎を解き明かすために動き出す）" },
     ];
