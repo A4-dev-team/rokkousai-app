@@ -13,6 +13,7 @@ export default function Page() {
 			setIsView1(false);
 		}
 	}, []);
-
-	return <>{isView1 ? <View1 /> : <View2 />}</>;
+	return (
+		isView1 ? <View1 /> : <View2 />
+	);
 }
