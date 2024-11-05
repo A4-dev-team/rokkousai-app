@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useState, useEffect } from "react";
 import { View1 } from "./_components/View1";
 import { View2 } from "./_components/View2";
@@ -14,9 +14,5 @@ export default function Page() {
 		}
 	}, []);
 
-	return (
-		<>
-			{isView1 ? <View1 /> : <View2 />}
-		</>
-	);
+	return <>{isView1 ? <View1 /> : <View2 />}</>;
 }
