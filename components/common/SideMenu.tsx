@@ -17,8 +17,8 @@ interface SideMenuProps {
 
 const SideMenu: React.FC = () => {
 	const [stages, setStages] = useState<SideMenuProps[]>([]);
-	const [isOpen, setIsOpen] = useState(false); // サイドメニューの表示状態
-	const [expandedStage, setExpandedStage] = useState<number | null>(null); // 展開されているステージ
+	const [isOpen, setIsOpen] = useState(false); // サイドメニューの表示状態を管理
+	const [expandedStage, setExpandedStage] = useState<number | null>(null); // どのステージが展開されているかを管理
 	const [isFormVisible, setIsFormVisible] = useState(false); // フォームの表示状態
 	const [currentUnlockStage, setCurrentUnlockStage] = useState<number | null>(
 		null,
@@ -160,6 +160,7 @@ const SideMenu: React.FC = () => {
 											</>
 										) : (
 											<>
+												{/* TODO:  ロックを解除するためのフォームとロジックの追加 */}
 												<FaLock className="inline mr-1" />
 												{`${stage.stageName} - Locked`}
 											</>
@@ -167,18 +168,19 @@ const SideMenu: React.FC = () => {
 									</span>
 								</button>
 
-								{stage.accessible && expandedStage === index && (
-									<ul className="ml-8 mt-2 space-y-3">
-										{stage.menuItems.map((item) => (
-											<li
-												key={item.href}
-												className="flex items-center gap-2 text-gray-300 hover:text-white transition duration-150"
-											>
-												<Link href={item.href}>{item.title}</Link>
-											</li>
-										))}
-									</ul>
-								)}
+								{stage.accessible &&
+									expandedStage === index && ( // トグルで展開される子メニュー
+										<ul className="ml-8 mt-2 space-y-3">
+											{stage.menuItems.map((item) => (
+												<li
+													key={item.href}
+													className="flex items-center gap-2 text-gray-300 hover:text-white transition duration-150"
+												>
+													<Link href={item.href}>{item.title}</Link>
+												</li>
+											))}
+										</ul>
+									)}
 							</li>
 						))}
 					</ul>
