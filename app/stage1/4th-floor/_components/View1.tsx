@@ -1,6 +1,6 @@
 "use client";
 import { ScrollableChatWindow } from "@/components/common/ScrollableChatWindow";
-import { DialogueProps, DialogueController} from "@/components/common/DialogueController";
+import { DialogueProps, DialogueController } from "@/components/common/DialogueController";
 
 export function View1() {
 

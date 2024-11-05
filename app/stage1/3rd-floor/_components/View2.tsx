@@ -1,6 +1,6 @@
 "use client";
 import { ScrollableChatWindow } from "@/components/common/ScrollableChatWindow";
-import { DialogueProps, DialogueController} from "@/components/common/DialogueController";
+import { DialogueProps, DialogueController } from "@/components/common/DialogueController";
 
 export function View2() {
     const dialogues: DialogueProps[] = [
@@ -18,9 +18,9 @@ export function View2() {
 
     return (
         <div className="h-full flex flex-col justify-end">
-          <ScrollableChatWindow>
-            <DialogueController dialogues={dialogues} />
-          </ScrollableChatWindow>
+            <ScrollableChatWindow>
+                <DialogueController dialogues={dialogues} />
+            </ScrollableChatWindow>
         </div>
-      );
+    );
 }
