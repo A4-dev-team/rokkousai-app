@@ -27,8 +27,8 @@ const SideMenu: React.FC = () => {
 				stageName: 'Stage1 「賃貸」',
 				menuItems: [
 					{
-						title: "エントランス",
-						href: "/stage1/entrance",
+						title: "1階",
+						href: "/stage1/1st-floor",
 					},
 					{
 						title: "2階",
@@ -78,7 +78,7 @@ const SideMenu: React.FC = () => {
 	};
 
 	return (
-		<div className="relative">
+		<div className="relative ">
 			{/* ハンバーガーメニュー */}
 			<button
 				className="p-4 focus:outline-none"
@@ -89,7 +89,7 @@ const SideMenu: React.FC = () => {
 
 			{/* サイドメニュー */}
 			{isOpen && (
-				<aside className="flex flex-col w-64 h-full p-6 gap-6 bg-gray-900 text-white shadow-lg absolute top-0 left-0 z-50">
+				<aside className="flex flex-col w-64 min-h-screen p-6 gap-6 bg-gray-900 text-white shadow-lg absolute top-0 left-0 z-50">
 					<h2 className="flex justify-between items-center text-xl font-bold text-gray-300">
 						MENU
 						<button
@@ -109,7 +109,7 @@ const SideMenu: React.FC = () => {
 									<span className={`font-semibold ${stage.accessible ? 'text-gray-300 group-hover:text-white' : 'text-gray-500'}`}>
 										{stage.accessible ? (
 											<>
-												{expandedStage === index ? <VscTriangleDown className="inline mr-1"/> : <VscTriangleRight className="inline mr-1" />}
+												{expandedStage === index ? <VscTriangleDown className="inline mr-1" /> : <VscTriangleRight className="inline mr-1" />}
 												{stage.stageName}
 											</>
 										) : (

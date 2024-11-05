@@ -50,19 +50,10 @@
 //     </div>
 //   );
 // }
-
-import { View1 } from "../owner/[slug]/_components/Scene4";
-import { View2 } from "../owner/[slug]/_components/Scene5";
 import { View3 } from "./_components/View3";
 import { View4 } from "./_components/View4";
 
 export default function Page({ params }: { params: { slug: string } }) {
-	if (params.slug === "view-1") {
-		return <View1 />;
-	}
-	if (params.slug === "view-2") {
-		return <View2 />;
-	}
 	if (params.slug === "view-3") {
 		return <View3 />;
 	}

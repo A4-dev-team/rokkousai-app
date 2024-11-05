@@ -1,23 +1,17 @@
-import React from "react";
+"use client";
+import { ScrollableChatWindow } from "@/components/common/ScrollableChatWindow";
+import { DialogueProps, DialogueController} from "@/components/common/DialogueController";
 
-const View1: React.FC = () => {
+export function View1() {
+  const dialogues: DialogueProps[] = [
+    { type: "text", name: "", text: "誰もいないようだ" }
+  ];
+
   return (
-    <div className="relative h-screen w-screen flex flex-col items-center justify-end bg-cover bg-center bg-[url('/building.png')]">
-      <div className="absolute inset-0 bg-white opacity-50"></div>
-      <div className="relative w-full h-[30%] flex items-start justify-start overflow-hidden p-4">
-        <div className="border border-gray-700 p-2 w-full bg-black">
-          <h1 className="text-white text-4xl mb-8 text-left">
-            <br />
-            <br />
-            誰もいないようだ...
-            <br />
-            <br />
-            <br />
-          </h1>
-        </div>
-      </div>
+    <div className="h-full flex flex-col justify-end">
+      <ScrollableChatWindow>
+        <DialogueController dialogues={dialogues} />
+      </ScrollableChatWindow>
     </div>
   );
-};
-
-export default View1;
+}
