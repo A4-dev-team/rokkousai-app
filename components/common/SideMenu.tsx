@@ -43,17 +43,24 @@ const SideMenu: React.FC = () => {
 				accessible: true,
 			},
 			{
-				stageName: "Stage2",
+				stageName: "Stage2 「かみ食堂」",
 				menuItems: [
-					{ title: "View1", href: "/stage2/view1" },
-					{ title: "View2", href: "/stage2/view2" },
-					{ title: "View3", href: "/stage2/view3" },
+					{ title: "店長", href: "/stage2/manager" },
+					{ title: "上田", href: "/stage2/ueda" },
+					{ title: "松本", href: "/stage2/matumoto" },
 				],
 				accessible: localStorage.getItem("stage2Accessible") === "true",
 			},
 			{
-				stageName: "Stage3",
-				menuItems: [{ title: "View1", href: "/stage3/view1" }],
+				stageName: "Stage3 「大学」",
+				menuItems: [
+					{ title: "ロイ先生", href: "/stage3/roi" },
+					{ title: "水島先生", href: "/stage3/mizusima" },
+					{ title: "兼松先生", href: "/stage3/kakematu" },
+					{ title: "田崎先生", href: "/stage3/tazaki" },
+					{ title: "学生便覧", href: "" },
+				],
+
 				accessible: localStorage.getItem("stage3Accessible") === "true",
 			},
 			{
