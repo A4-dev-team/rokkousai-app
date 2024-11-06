@@ -37,6 +37,7 @@ const stageMenuItems: StageMenuItem[] = [
 			{ name: "店長", href: "/stage2/manager" },
 			{ name: "上田", href: "/stage2/ueda" },
 			{ name: "松本", href: "/stage2/matumoto" },
+			{ name: "えーごはん", href: "" },
 		],
 	},
 	{
