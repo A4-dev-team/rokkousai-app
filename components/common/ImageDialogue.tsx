@@ -28,7 +28,7 @@ export const ImageDialogue: React.FC<ImageDialogueProps> = ({
   return (
     <div>
       <h2 className="text-white text-2xl font-bold mb-4 text-left">{name}</h2>
-      <p className="text-white text-left" style={{ fontSize: "20px" }}>
+      <p className="text-white text-left mb-2" style={{ fontSize: "20px" }}>
         {text}
       </p>
       {/* 複数の画像を表示 */}
