@@ -13,11 +13,18 @@ interface DialogueControllerProps {
 	dialogues: DialogueProps[];
 }
 
-export default function DialogueController(props: DialogueControllerProps) {
+export function DialogueController(props: DialogueControllerProps) {
 	const { dialogues } = props;
 
 	const [currentIndex, setCurrentIndex] = useState(0);
-	const accessibleNext = dialogues[currentIndex].type !== "form";
+	const [isQuestionCleared, setIsQuestionCleared] = useState(false);
+
+	const accessibleNext = () => {
+		if (dialogues[currentIndex].type === "form") {
+			return isQuestionCleared;
+		}
+		return true;
+	};
 
 	const handlePrevious = () => {
 		setCurrentIndex(currentIndex - 1);
@@ -27,8 +34,8 @@ export default function DialogueController(props: DialogueControllerProps) {
 		setCurrentIndex((prev) => prev + 1);
 	};
 
-	const handleFormClear = () => {
-		setCurrentIndex((prev) => prev + 1);
+	const handleClear = () => {
+		setIsQuestionCleared(true);
 	};
 
 	const renderDialogueContent = (dialogue: DialogueProps) => {
@@ -61,7 +68,7 @@ export default function DialogueController(props: DialogueControllerProps) {
 					formPlaceholder={dialogue.formPlaceholder}
 					answer={dialogue.answer}
 					hint={dialogue.hint}
-					onClear={handleFormClear}
+					onClear={handleClear}
 				/>
 			);
 		}
@@ -69,32 +76,38 @@ export default function DialogueController(props: DialogueControllerProps) {
 	};
 
 	return (
-		<div className="dialogue-container ">
+		<div className="h-full flex flex-col justify-between">
 			{renderDialogueContent(dialogues[currentIndex])}
-			<div className="flex justify-between mt-4 text-center fixed bottom-3">
-				{currentIndex > 0 && (
-					<button
-						type="button"
-						className="p-2 text-white rounded flex items-center  mr-20"
-						onClick={handlePrevious}
-					>
-						<HiChevronDoubleLeft className="mr-2" />
-						戻る
-					</button>
-				)}
-				<div className="p-2 text-white rounded flex items-center ml-5 mr-5">
-					{currentIndex + 1} / {dialogues.length}
+			<div className="grid grid-cols-3 items-center mt-4">
+				<div className="col-span-1 flex justify-start items-center">
+					{currentIndex > 0 && (
+						<button
+							type="button"
+							className="flex items-center gap-2 p-2 text-white"
+							onClick={handlePrevious}
+						>
+							<HiChevronDoubleLeft />
+							<span>戻る</span>
+						</button>
+					)}
 				</div>
-				{currentIndex < dialogues.length - 1 && accessibleNext && (
-					<button
-						type="button"
-						className="p-2 text-white rounded flex items-center ml-20 "
-						onClick={handleNext}
-					>
-						次へ
-						<HiChevronDoubleRight className="ml-2" />
-					</button>
-				)}
+				<div className="col-span-1 flex justify-center items-center">
+					<span className="text-white text-center">
+						{currentIndex + 1} / {dialogues.length}
+					</span>
+				</div>
+				<div className="col-span-1 flex justify-end items-center">
+					{currentIndex < dialogues.length - 1 && accessibleNext() && (
+						<button
+							type="button"
+							className="flex items-center gap-2 p-2 text-white"
+							onClick={handleNext}
+						>
+							<span>次へ</span>
+							<HiChevronDoubleRight />
+						</button>
+					)}
+				</div>
 			</div>
 		</div>
 	);
