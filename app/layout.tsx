@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CommonLayout } from "@/components/layout/CommonLayout";
 import "./globals.css";
 import type React from "react";
 
@@ -9,10 +10,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
-}: { children: React.ReactNode }) {
+}: {
+	children: React.ReactNode;
+}) {
 	return (
 		<html lang="ja">
-			<body>{children}</body>
+			<body>
+				<CommonLayout>{children}</CommonLayout>
+			</body>
 		</html>
 	);
 }
