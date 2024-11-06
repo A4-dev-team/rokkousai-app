@@ -2,9 +2,8 @@
 import { useState, useEffect } from "react";
 import { FaLock, FaTimes, FaBars } from "react-icons/fa";
 import { VscTriangleRight, VscTriangleDown } from "react-icons/vsc";
-import { FormInput } from "@/components/common/FormInput"; // フォーム入力コンポーネント
 import Link from "next/link";
-import type React from "react";
+import { UnlockForm } from "@/components/common/UnlockForm"; // UnlockFormコンポーネントのインポート
 
 interface SideMenuProps {
 	stageName: string;
@@ -23,7 +22,6 @@ const SideMenu: React.FC = () => {
 	const [currentUnlockStage, setCurrentUnlockStage] = useState<number | null>(
 		null,
 	); // 現在ロック解除中のステージ
-	const [unlockKeyword, setUnlockKeyword] = useState<string>(""); // ロック解除キーワード
 
 	useEffect(() => {
 		// 初期ステージデータの取得
@@ -77,27 +75,24 @@ const SideMenu: React.FC = () => {
 	const showUnlockForm = (index: number) => {
 		setIsFormVisible(true);
 		setCurrentUnlockStage(index);
-		setUnlockKeyword(index === 1 ? "meal" : "大学"); // Stage2用とStage3用で異なるキーワード
 	};
 
-	// ロック解除フォームが送信されたときの処理
-	const handleUnlockSubmit = (value: string) => {
-		if (value === unlockKeyword) {
+	// ロック解除が成功したときの処理
+	const handleUnlockSuccess = (success: boolean) => {
+		if (success) {
 			localStorage.setItem(
 				currentUnlockStage === 1 ? "stage2Accessible" : "stage3Accessible",
 				"true",
-			); // Stage2またはStage3のアクセス権をローカルストレージに保存
-
-			// ステージのアクセス状態を更新
+			);
 			setStages((prevStages) =>
-				prevStages.map((stage, index) =>
-					index === currentUnlockStage ? { ...stage, accessible: true } : stage,
+				prevStages.map((stage, idx) =>
+					idx === currentUnlockStage ? { ...stage, accessible: true } : stage,
 				),
 			);
-			setIsFormVisible(false);
 		} else {
 			alert("キーワードが間違っています");
 		}
+		setIsFormVisible(false);
 	};
 
 	return (
@@ -132,15 +127,6 @@ const SideMenu: React.FC = () => {
 											? toggleStage(index)
 											: showUnlockForm(index)
 									}
-									onKeyDown={(e) => {
-										if (e.key === "Enter") {
-											// Enterキーで操作
-											stage.accessible
-												? toggleStage(index)
-												: showUnlockForm(index);
-										}
-									}}
-									tabIndex={0} // キーボードでフォーカスできるようにする
 								>
 									<span
 										className={`font-semibold ${
@@ -160,7 +146,6 @@ const SideMenu: React.FC = () => {
 											</>
 										) : (
 											<>
-												{/* TODO:  ロックを解除するためのフォームとロジックの追加 */}
 												<FaLock className="inline mr-1" />
 												{`${stage.stageName} - Locked`}
 											</>
@@ -168,45 +153,31 @@ const SideMenu: React.FC = () => {
 									</span>
 								</button>
 
-								{stage.accessible &&
-									expandedStage === index && ( // トグルで展開される子メニュー
-										<ul className="ml-8 mt-2 space-y-3">
-											{stage.menuItems.map((item) => (
-												<li
-													key={item.href}
-													className="flex items-center gap-2 text-gray-300 hover:text-white transition duration-150"
-												>
-													<Link href={item.href}>{item.title}</Link>
-												</li>
-											))}
-										</ul>
-									)}
+								{stage.accessible && expandedStage === index && (
+									<ul className="ml-8 mt-2 space-y-3">
+										{stage.menuItems.map((item) => (
+											<li
+												key={item.href}
+												className="flex items-center gap-2 text-gray-300 hover:text-white transition duration-150"
+											>
+												<Link href={item.href}>{item.title}</Link>
+											</li>
+										))}
+									</ul>
+								)}
 							</li>
 						))}
 					</ul>
 				</aside>
 			)}
 
-			{/* ロック解除フォーム（Stage2 または Stage3） */}
+			{/* ロック解除フォーム */}
 			{isFormVisible && currentUnlockStage !== null && (
-				<div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
-					<div className="relative p-6 bg-white rounded-xl shadow-lg">
-						<h3 className="text-xl font-bold mb-4">
-							{currentUnlockStage === 1 ? "Stage2 Unlock" : "Stage3 Unlock"}
-						</h3>
-						<FormInput
-							placeholder="キーワードを入力してください"
-							onSubmit={handleUnlockSubmit}
-						/>
-						<button
-							type="button"
-							onClick={() => setIsFormVisible(false)}
-							className="absolute top-2 right-2 text-gray-600"
-						>
-							<FaTimes />
-						</button>
-					</div>
-				</div>
+				<UnlockForm
+					stageName={stages[currentUnlockStage].stageName}
+					onUnlock={handleUnlockSuccess}
+					onClose={() => setIsFormVisible(false)}
+				/>
 			)}
 		</div>
 	);
