@@ -1,103 +1,107 @@
 "use client";
-import { useState, useEffect } from "react";
-import { FaLock, FaTimes, FaBars } from "react-icons/fa";
-import { VscTriangleRight, VscTriangleDown } from "react-icons/vsc";
-import { FormInput } from "@/components/common/FormInput"; // フォーム入力コンポーネント
+import { FormInput } from "@/components/common/FormInput";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import Link from "next/link";
-import type React from "react";
+import { useState } from "react";
+import { FaBars, FaLock, FaTimes } from "react-icons/fa";
+import { VscTriangleDown, VscTriangleRight } from "react-icons/vsc";
 
-interface SideMenuProps {
+type StageMenuItem = {
+	stageId: number;
 	stageName: string;
-	menuItems: {
-		title: string;
+	scenes: {
+		name: string;
 		href: string;
 	}[];
-	accessible: boolean;
-}
+};
 
-const SideMenu: React.FC = () => {
-	const [stages, setStages] = useState<SideMenuProps[]>([]);
-	const [isOpen, setIsOpen] = useState(false); // サイドメニューの表示状態を管理
-	const [expandedStage, setExpandedStage] = useState<number | null>(null); // どのステージが展開されているかを管理
-	const [isFormVisible, setIsFormVisible] = useState(false); // フォームの表示状態
-	const [currentUnlockStage, setCurrentUnlockStage] = useState<number | null>(
-		null,
-	); // 現在ロック解除中のステージ
-	const [unlockKeyword, setUnlockKeyword] = useState<string>(""); // ロック解除キーワード
-
-	useEffect(() => {
-		// 初期ステージデータの取得
-		const initialStages: SideMenuProps[] = [
+const stageMenuItems: StageMenuItem[] = [
+	{
+		stageId: 1,
+		stageName: "Stage1 「賃貸」",
+		scenes: [
+			{ name: "1階", href: "/stage1/1st-floor" },
+			{ name: "2階", href: "/stage1/2nd-floor" },
+			{ name: "3階", href: "/stage1/3rd-floor" },
+			{ name: "4階", href: "/stage1/4th-floor" },
 			{
-				stageName: "Stage1 「賃貸」",
-				menuItems: [
-					{ title: "1階", href: "/stage1/1st-floor" },
-					{ title: "2階", href: "/stage1/2nd-floor" },
-					{ title: "3階", href: "/stage1/3rd-floor" },
-					{ title: "4階", href: "/stage1/4th-floor" },
-					{
-						title: "SHINDAI HUB 賃貸",
-						href: "https://shindaihub-rentalhouse.glide.page/",
-					},
-				],
-				accessible: true,
+				name: "SHINDAI HUB 賃貸",
+				href: "https://shindaihub-rentalhouse.glide.page/",
 			},
-			{
-				stageName: "Stage2",
-				menuItems: [
-					{ title: "View1", href: "/stage2/view1" },
-					{ title: "View2", href: "/stage2/view2" },
-					{ title: "View3", href: "/stage2/view3" },
-				],
-				accessible: localStorage.getItem("stage2Accessible") === "true",
-			},
-			{
-				stageName: "Stage3",
-				menuItems: [{ title: "View1", href: "/stage3/view1" }],
-				accessible: localStorage.getItem("stage3Accessible") === "true",
-			},
-			{
-				stageName: "アイテム",
-				menuItems: [
-					{ title: "SHINDAI HUB", href: "https://kobe-uni-hub.vercel.app/" },
-					{ title: "ヒント用LINE", href: "" },
-				],
-				accessible: true,
-			},
-		];
-		setStages(initialStages);
-	}, []);
+		],
+	},
+	{
+		stageId: 2,
+		stageName: "Stage2「かみ食堂」",
+		scenes: [
+			{ name: "店長", href: "/stage2/manager" },
+			{ name: "上田", href: "/stage2/ueda" },
+			{ name: "松本", href: "/stage2/matumoto" },
+		],
+	},
+	{
+		stageId: 3,
+		stageName: "Stage3「大学」",
+		scenes: [
+			{ name: "ロイ先生", href: "/stage3/roi" },
+			{ name: "水島先生", href: "/stage3/mizusima" },
+			{ name: "兼松先生", href: "/stage3/kakematu" },
+			{ name: "田崎先生", href: "/stage3/tazaki" },
+			{ name: "学生便覧", href: "" },
+		],
+	},
+];
 
-	// ステージのトグル
-	const toggleStage = (index: number) => {
-		setExpandedStage(expandedStage === index ? null : index);
-	};
+const itemMenuItems = [
+	{ name: "SHINDAI HUB", href: "https://kobe-uni-hub.vercel.app/" },
+	{ name: "ヒント用LINE", href: "" },
+];
 
-	// ロック解除フォームの表示
-	const showUnlockForm = (index: number) => {
-		setIsFormVisible(true);
-		setCurrentUnlockStage(index);
-		setUnlockKeyword(index === 1 ? "meal" : "大学"); // Stage2用とStage3用で異なるキーワード
-	};
+export default function SideMenu() {
+	const [stage2Accessible, setStage2Accessible] = useLocalStorage(
+		"stage2Accessible",
+		"",
+	);
+	const [stage3Accessible, setStage3Accessible] = useLocalStorage(
+		"stage3Accessible",
+		"",
+	);
 
-	// ロック解除フォームが送信されたときの処理
-	const handleUnlockSubmit = (value: string) => {
-		if (value === unlockKeyword) {
-			localStorage.setItem(
-				currentUnlockStage === 1 ? "stage2Accessible" : "stage3Accessible",
-				"true",
-			); // Stage2またはStage3のアクセス権をローカルストレージに保存
+	const [isOpen, setIsOpen] = useState(false);
+	const [expandedStageId, setExpandedStageId] = useState<number | null>(null);
+	const [unlockingStageId, setUnlockingStageId] = useState<number | null>(null);
 
-			// ステージのアクセス状態を更新
-			setStages((prevStages) =>
-				prevStages.map((stage, index) =>
-					index === currentUnlockStage ? { ...stage, accessible: true } : stage,
-				),
-			);
-			setIsFormVisible(false);
-		} else {
-			alert("キーワードが間違っています");
+	const isStageAccessible = (stageId: number) => {
+		if (stageId === 2) {
+			return stage2Accessible === "true";
 		}
+		if (stageId === 3) {
+			return stage3Accessible === "true";
+		}
+		return true;
+	};
+
+	const handleClickStageItem = (stageId: number) => {
+		if (isStageAccessible(stageId)) {
+			setExpandedStageId((prev) => (prev === stageId ? null : stageId));
+		} else {
+			setUnlockingStageId(stageId);
+		}
+	};
+
+	const handleUnlock = (value: string) => {
+		if (unlockingStageId === null) {
+			return;
+		}
+		if (unlockingStageId === 2 && value === "meal") {
+			setUnlockingStageId(null);
+			return setStage2Accessible("true");
+		}
+		if (unlockingStageId === 3 && value === "大学") {
+			setUnlockingStageId(null);
+			return setStage3Accessible("true");
+		}
+		alert("キーワードが間違っています");
 	};
 
 	return (
@@ -114,102 +118,98 @@ const SideMenu: React.FC = () => {
 			{/* サイドメニュー */}
 			{isOpen && (
 				<aside className="flex flex-col w-64 min-h-screen p-6 gap-6 bg-gray-900 text-white shadow-lg absolute top-0 left-0 z-50">
-					<h2 className="flex justify-between items-center text-xl font-bold text-gray-300">
-						MENU
+					<div className="flex justify-between items-center">
+						<h2 className="text-xl font-bold text-gray-300">MENU</h2>
 						<button type="button" onClick={() => setIsOpen(!isOpen)}>
 							<FaTimes />
 						</button>
-					</h2>
+					</div>
 
 					<ul className="space-y-4">
-						{stages.map((stage, index) => (
-							<li key={stage.stageName} className="group">
-								<button
-									type="button"
-									className="flex items-center gap-3 cursor-pointer transition duration-200 ease-in-out"
-									onClick={() =>
-										stage.accessible
-											? toggleStage(index)
-											: showUnlockForm(index)
-									}
-									onKeyDown={(e) => {
-										if (e.key === "Enter") {
-											// Enterキーで操作
-											stage.accessible
-												? toggleStage(index)
-												: showUnlockForm(index);
-										}
-									}}
-									tabIndex={0} // キーボードでフォーカスできるようにする
-								>
-									<span
-										className={`font-semibold ${
-											stage.accessible
-												? "text-gray-300 group-hover:text-white"
-												: "text-gray-500"
-										}`}
+						{stageMenuItems.map((stage) => (
+							<div key={stage.stageName} className="flex flex-col gap-2">
+								<li className="group">
+									<button
+										type="button"
+										className="cursor-pointer transition duration-200 ease-in-out"
+										onClick={() => handleClickStageItem(stage.stageId)}
 									>
-										{stage.accessible ? (
-											<>
-												{expandedStage === index ? (
-													<VscTriangleDown className="inline mr-1" />
+										{isStageAccessible(stage.stageId) ? (
+											<div className="flex items-center gap-2 font-semibold">
+												{expandedStageId === stage.stageId ? (
+													<VscTriangleDown className="text-gray-300 group-hover:text-white" />
 												) : (
-													<VscTriangleRight className="inline mr-1" />
+													<VscTriangleRight className="text-gray-300 group-hover:text-white" />
 												)}
-												{stage.stageName}
-											</>
+												<span className="text-gray-300 group-hover:text-white">
+													{stage.stageName}
+												</span>
+											</div>
 										) : (
-											<>
-												{/* TODO:  ロックを解除するためのフォームとロジックの追加 */}
-												<FaLock className="inline mr-1" />
-												{`${stage.stageName} - Locked`}
-											</>
+											<div className="flex items-center gap-2 font-semibold">
+												<FaLock className="inline mr-1 text-gray-500" />
+												<span className="text-gray-500">{stage.stageName}</span>
+											</div>
 										)}
-									</span>
-								</button>
-
-								{stage.accessible &&
-									expandedStage === index && ( // トグルで展開される子メニュー
-										<ul className="ml-8 mt-2 space-y-3">
-											{stage.menuItems.map((item) => (
-												<li
-													key={item.href}
-													className="flex items-center gap-2 text-gray-300 hover:text-white transition duration-150"
-												>
-													<Link href={item.href}>{item.title}</Link>
-												</li>
-											))}
-										</ul>
-									)}
-							</li>
+									</button>
+								</li>
+								{expandedStageId === stage.stageId && (
+									<ul className="ml-8 space-y-3">
+										{stage.scenes.map((item) => (
+											<li
+												key={item.href}
+												className="text-gray-300 hover:text-white transition duration-150"
+											>
+												<Link href={item.href}>{item.name}</Link>
+											</li>
+										))}
+									</ul>
+								)}
+							</div>
 						))}
+					</ul>
+
+					<ul className="space-y-4">
+						<li className="group">
+							<span>アイテム</span>
+							<ul className="ml-4 mt-2 space-y-3">
+								{itemMenuItems.map((item) => (
+									<li
+										key={item.href}
+										className="flex items-center gap-2 text-gray-300 hover:text-white transition duration-150"
+									>
+										<Link href={item.href}>{item.name}</Link>
+									</li>
+								))}
+							</ul>
+						</li>
 					</ul>
 				</aside>
 			)}
 
 			{/* ロック解除フォーム（Stage2 または Stage3） */}
-			{isFormVisible && currentUnlockStage !== null && (
+			{unlockingStageId !== null && (
 				<div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
-					<div className="relative p-6 bg-white rounded-xl shadow-lg">
-						<h3 className="text-xl font-bold mb-4">
-							{currentUnlockStage === 1 ? "Stage2 Unlock" : "Stage3 Unlock"}
-						</h3>
+					<div className="w-96 flex flex-col justify-center items-center gap-4 p-6 bg-white rounded-xl shadow-lg">
+						<div className="w-full flex justify-between items-center">
+							<h3 className="text-xl font-bold">
+								{`Unlock Stage${unlockingStageId}`}
+							</h3>
+							<button
+								type="button"
+								onClick={() => setUnlockingStageId(null)}
+								className="text-gray-600"
+							>
+								<FaTimes />
+							</button>
+						</div>
 						<FormInput
 							placeholder="キーワードを入力してください"
-							onSubmit={handleUnlockSubmit}
+							onSubmit={handleUnlock}
 						/>
-						<button
-							type="button"
-							onClick={() => setIsFormVisible(false)}
-							className="absolute top-2 right-2 text-gray-600"
-						>
-							<FaTimes />
-						</button>
 					</div>
 				</div>
 			)}
 		</div>
 	);
-};
-
-export default SideMenu;
+}
