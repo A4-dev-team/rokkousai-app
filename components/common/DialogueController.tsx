@@ -1,131 +1,114 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
 import { FormDialogue, type FormDialogueProps } from "./FormDialogue";
 import { ImageDialogue, type ImageDialogueProps } from "./ImageDialogue";
 import { TextDialogue, type TextDialogueProps } from "./TextDialogue";
 
 export type DialogueProps =
-  | TextDialogueProps
-  | ImageDialogueProps
-  | FormDialogueProps;
-
+	| TextDialogueProps
+	| ImageDialogueProps
+	| FormDialogueProps;
 
 interface DialogueControllerProps {
 	dialogues: DialogueProps[];
 }
 
-export const DialogueController: React.FC<DialogueControllerProps> = ({
-	dialogues,
-}) => {
-	const [currentIndex, setCurrentIndex] = useState(0);
-	const [logs, setLogs] = useState<DialogueProps[]>([]);
-	const [accessibleNext, setAccessibleNext] = useState(true);
+export function DialogueController(props: DialogueControllerProps) {
+	const { dialogues } = props;
 
-	useEffect(() => {
-		const savedLogs = JSON.parse(localStorage.getItem("dialogueLogs") ?? "[]");
-		setLogs(savedLogs);
-	}, []);
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const [isQuestionCleared, setIsQuestionCleared] = useState(false);
+
+	const accessibleNext = () => {
+		if (dialogues[currentIndex].type === "form") {
+			return isQuestionCleared;
+		}
+		return true;
+	};
 
 	const handlePrevious = () => {
-		if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
-		setAccessibleNext(true);
+		setCurrentIndex(currentIndex - 1);
 	};
 
 	const handleNext = () => {
-		const currentDialogue = dialogues[currentIndex];
-		const newLogs = [...logs, currentDialogue];
-		setLogs(newLogs);
-		localStorage.setItem("dialogueLogs", JSON.stringify(newLogs));
+		setCurrentIndex((prev) => prev + 1);
+	};
 
-		if (currentIndex < dialogues.length - 1) setCurrentIndex(currentIndex + 1);
-
-		if (dialogues[currentIndex + 1].type === "form") {
-			setAccessibleNext(false);
-		}
+	const handleClear = () => {
+		setIsQuestionCleared(true);
 	};
 
 	const renderDialogueContent = (dialogue: DialogueProps) => {
-		switch (dialogue.type) {
-			case "text":
-				return (
-					<TextDialogue
-						type={dialogue.type}
-						name={dialogue.name}
-						text={dialogue.text}
-					/>
-				);
-			case "image":
-				return (
-					<ImageDialogue
-						type={dialogue.type}
-						name={dialogue.name}
-						text={dialogue.text}
-						imageUrls={dialogue.imageUrls}
-					/>
-				);
-			case "form":
-				return (
-					<FormDialogue
-						type={dialogue.type}
-						name={dialogue.name}
-						text={dialogue.text}
-						formName={dialogue.formName}
-						formPlaceholder={dialogue.formPlaceholder}
-						answer={dialogue.answer}
-						hint={dialogue.hint}
-						onClear={handleFormClear}
-					/>
-				);
-			default:
-				return null;
+		if (dialogue.type === "text") {
+			return (
+				<TextDialogue
+					type={dialogue.type}
+					name={dialogue.name}
+					text={dialogue.text}
+				/>
+			);
 		}
+		if (dialogue.type === "image") {
+			return (
+				<ImageDialogue
+					type={dialogue.type}
+					name={dialogue.name}
+					text={dialogue.text}
+					imageUrls={dialogue.imageUrls}
+				/>
+			);
+		}
+		if (dialogue.type === "form") {
+			return (
+				<FormDialogue
+					type={dialogue.type}
+					name={dialogue.name}
+					text={dialogue.text}
+					formName={dialogue.formName}
+					formPlaceholder={dialogue.formPlaceholder}
+					answer={dialogue.answer}
+					hint={dialogue.hint}
+					onClear={handleClear}
+				/>
+			);
+		}
+		return null;
 	};
 
-  // フォームクリア時に次ボタンを表示可能にする
-  const handleFormClear = () => {
-    setAccessibleNext(true);
-  };
-
-  return (
-    <div className="dialogue-container ">
-      {renderDialogueContent(dialogues[currentIndex])}
-      <div className="flex justify-between mt-4 text-center fixed bottom-3">
-        {currentIndex > 0 && (
-          <button
-            className="p-2 text-white rounded flex items-center  mr-20"
-            onClick={handlePrevious}
-          >
-            <HiChevronDoubleLeft className="mr-2" />
-            戻る
-          </button>
-        )}
-        {currentIndex === 0 && (
-          <button
-            className="p-2 text-transparent rounded flex items-center  mr-20"
-            onClick={handlePrevious}
-          >
-            <HiChevronDoubleLeft className="mr-2" />
-            戻る
-          </button>
-        )}
-  
-
-        
-        <div className="p-2 text-white rounded flex items-center ml-5 mr-5">
-          {currentIndex + 1} / {dialogues.length}
-        </div>
-        {currentIndex < dialogues.length - 1 && accessibleNext && (
-          <button
-            className="p-2 text-white rounded flex items-center ml-20 "
-            onClick={handleNext}
-          >
-            次へ
-            <HiChevronDoubleRight className="ml-2" />
-          </button>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default DialogueController;
+	return (
+		<div className="h-full flex flex-col justify-between">
+			{renderDialogueContent(dialogues[currentIndex])}
+			<div className="grid grid-cols-3 items-center mt-4">
+				<div className="col-span-1 flex justify-start items-center">
+					{currentIndex > 0 && (
+						<button
+							type="button"
+							className="flex items-center gap-2 p-2 text-white"
+							onClick={handlePrevious}
+						>
+							<HiChevronDoubleLeft />
+							<span>戻る</span>
+						</button>
+					)}
+				</div>
+				<div className="col-span-1 flex justify-center items-center">
+					<span className="text-white text-center">
+						{currentIndex + 1} / {dialogues.length}
+					</span>
+				</div>
+				<div className="col-span-1 flex justify-end items-center">
+					{currentIndex < dialogues.length - 1 && accessibleNext() && (
+						<button
+							type="button"
+							className="flex items-center gap-2 p-2 text-white"
+							onClick={handleNext}
+						>
+							<span>次へ</span>
+							<HiChevronDoubleRight />
+						</button>
+					)}
+				</div>
+			</div>
+		</div>
+	);
+}
