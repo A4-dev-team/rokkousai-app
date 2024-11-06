@@ -86,24 +86,24 @@ export const DialogueController: React.FC<DialogueControllerProps> = ({
   };
 
   return (
-    <div>
+    <div className="dialogue-container ">
       {renderDialogueContent(dialogues[currentIndex])}
-      <div className="flex justify-between mt-4 fixed bottom-3">
+      <div className="flex justify-between mt-4 text-center fixed bottom-3">
         {currentIndex > 0 && (
           <button
-            className="p-2 text-white rounded flex items-center"
+            className="p-2 text-white rounded flex items-center  mr-20"
             onClick={handlePrevious}
           >
             <HiChevronDoubleLeft className="mr-2" />
             戻る
           </button>
         )}
-        <div className="p-2 text-white rounded flex items-center">
+        <div className="p-2 text-white rounded flex items-center ml-5 mr-5">
           {currentIndex + 1} / {dialogues.length}
         </div>
         {currentIndex < dialogues.length - 1 && accessibleNext && (
           <button
-            className="p-2 text-white rounded flex items-center"
+            className="p-2 text-white rounded flex items-center ml-20 "
             onClick={handleNext}
           >
             次へ
