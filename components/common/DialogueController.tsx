@@ -14,9 +14,9 @@ interface DialogueControllerProps {
 	dialogues: DialogueProps[];
 }
 
-export const DialogueController: React.FC<DialogueControllerProps> = ({
-	dialogues,
-}) => {
+export default function DialogueController(props: DialogueControllerProps) {
+  const { dialogues } = props;
+
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [logs, setLogs] = useState<DialogueProps[]>([]);
 	const [accessibleNext, setAccessibleNext] = useState(true);
@@ -128,4 +128,3 @@ export const DialogueController: React.FC<DialogueControllerProps> = ({
   );
 };
 
-export default DialogueController;
