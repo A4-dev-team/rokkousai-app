@@ -1,9 +1,10 @@
 import { useCallback, useState } from "react";
 
 const getLocalStorageValue = (key: string, initValue: string) => {
-	const item = localStorage.getItem(key);
-
-	return item ? item : initValue;
+	if (typeof window === "undefined") {
+		return initValue;
+	}
+	return localStorage.getItem(key) ?? initValue;
 };
 
 export const useLocalStorage = (key: string, initValue: string) => {
