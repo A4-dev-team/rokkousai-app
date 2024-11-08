@@ -24,41 +24,52 @@ const stageMenuItems: StageMenuItem[] = [
 			{ name: "2階", href: "/stage1/2nd-floor" },
 			{ name: "3階", href: "/stage1/3rd-floor" },
 			{ name: "4階", href: "/stage1/4th-floor" },
-			{
-				name: "SHINDAI HUB 賃貸",
-				href: "https://shindaihub-rentalhouse.glide.page/",
-			},
 		],
 	},
 	{
 		stageId: 2,
-		stageName: "Stage2「かみ食堂」",
+		stageName: "Stage2「えーごはん」",
 		scenes: [
 			{ name: "店長", href: "/stage2/manager" },
 			{ name: "上田", href: "/stage2/ueda" },
 			{ name: "松本", href: "/stage2/matumoto" },
-			{ name: "えーごはん", href: "" },
 		],
 	},
 	{
 		stageId: 3,
-		stageName: "Stage3「大学」",
+		stageName: "Stage3「授業・学内マップ」",
 		scenes: [
 			{ name: "ロイ先生", href: "/stage3/roi" },
 			{ name: "水島先生", href: "/stage3/mizusima" },
 			{ name: "兼松先生", href: "/stage3/kakematu" },
 			{ name: "田崎先生", href: "/stage3/tazaki" },
-			{ name: "学生便覧", href: "" },
 		],
 	},
 ];
 
 const itemMenuItems = [
-	{ name: "SHINDAI HUB", href: "https://kobe-uni-hub.vercel.app/" },
-	{ name: "ヒント用LINE", href: "" },
+	{
+		name: "SHINDAI HUB 賃貸",
+		href: "https://shindaihub-rentalhouse.glide.page/",
+	},
+	{
+		name: "えーごはん",
+		href: "https://shindaihub-meal.vercel.app/restaurants",
+	},
+	{ name: "SHINDAI HUB 授業", href: "https://shindaihub-class.glide.page/" },
+	{
+		name: "SHINDAI HUB 学内マップ",
+		href: "https://kobe-uni-hub.vercel.app/campus-map",
+	},
+	{ name: "ヒント用LINE", href: "https://lin.ee/3fs2lU1" },
+	{ name: "学生便覧", href: "/stage3/2025_Zyochi" },
 ];
 
 export default function SideMenu() {
+	const [stage1Accessible, setStage1Accessible] = useLocalStorage(
+		"stage1Accessible",
+		"",
+	);
 	const [stage2Accessible, setStage2Accessible] = useLocalStorage(
 		"stage2Accessible",
 		"",
@@ -73,6 +84,9 @@ export default function SideMenu() {
 	const [unlockingStageId, setUnlockingStageId] = useState<number | null>(null);
 
 	const isStageAccessible = (stageId: number) => {
+		if (stageId === 1) {
+			return stage1Accessible === "true";
+		}
 		if (stageId === 2) {
 			return stage2Accessible === "true";
 		}
@@ -94,7 +108,11 @@ export default function SideMenu() {
 		if (unlockingStageId === null) {
 			return;
 		}
-		if (unlockingStageId === 2 && value === "meal") {
+		if (unlockingStageId === 1 && value === "A4マンション") {
+			setUnlockingStageId(null);
+			return setStage1Accessible("true");
+		}
+		if (unlockingStageId === 2 && value === "かみ食堂でMEAL") {
 			setUnlockingStageId(null);
 			return setStage2Accessible("true");
 		}
@@ -118,7 +136,7 @@ export default function SideMenu() {
 
 			{/* サイドメニュー */}
 			{isOpen && (
-				<aside className="flex flex-col w-64 min-h-screen p-6 gap-6 bg-gray-900 text-white shadow-lg absolute top-0 left-0 z-50">
+				<aside className="flex flex-col w-80 min-h-screen p-6 gap-6 bg-gray-900 text-white shadow-lg absolute top-0 left-0 z-50">
 					<div className="flex justify-between items-center">
 						<h2 className="text-xl font-bold text-gray-300">MENU</h2>
 						<button type="button" onClick={() => setIsOpen(!isOpen)}>
