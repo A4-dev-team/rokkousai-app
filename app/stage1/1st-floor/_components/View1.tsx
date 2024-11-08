@@ -41,7 +41,7 @@ export function View1() {
 			formName: "room302",
 			formPlaceholder: "部屋番号を入力してください",
 			answer: "302",
-			hint: "3桁の部屋番号を入力してください",
+			hint: "他の住人やSHINDAI HUB 賃貸の口コミ情報を参考にしてください。",
 			onClear: () => console.log("クリアされました！"),
 		},
 		//正解のモーダル　もしくは　不正解のモーダルが表示される。正解の場合は

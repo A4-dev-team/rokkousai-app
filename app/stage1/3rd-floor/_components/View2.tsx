@@ -39,7 +39,7 @@ export function View2() {
 		},
 		{
 			type: "text",
-			name: "",
+			name: "ナレーション",
 			text: "（安井が部屋に戻り、しばらくして封筒を持ってくる）",
 		},
 		{
@@ -55,16 +55,18 @@ export function View2() {
 		},
 		{
 			type: "text",
-			name: "",
+			name: "ナレーション",
 			text: "（主人公は安井に礼を言い、封筒の中身を持ち帰り、新たな謎を解き明かすために動き出す）",
 		},
 	];
 
 	return (
-		<div className="h-full flex flex-col justify-end">
-			<ScrollableChatWindow>
-				<DialogueController dialogues={dialogues} />
-			</ScrollableChatWindow>
-		</div>
+		<div className="h-full w-full absolute bg-[url('/rental-yasui.png')] bg-cover bg-center">
+      <div className="h-full flex flex-col justify-end">
+				<ScrollableChatWindow>
+					<DialogueController dialogues={dialogues} />
+				</ScrollableChatWindow>
+			</div>
+    </div>
 	);
 }

@@ -128,7 +128,15 @@ export default function SideMenu() {
 			setUnlockingStageId(null);
 			return setStage3Accessible("true");
 		}
-		alert("キーワードが間違っています");
+
+		// unlockingStageIdごとのエラーメッセージを追加
+    if (unlockingStageId === 1) {
+			alert("キーワードが間違っています。ヒントは「徒歩1分」です");
+		} else if (unlockingStageId === 2) {
+			alert("キーワードが間違っています。");
+		} else if (unlockingStageId === 3) {
+			alert("キーワードが間違っています");
+		}
 	};
 
 	return (
@@ -215,8 +223,8 @@ export default function SideMenu() {
 						<FormInput
 							placeholder={
 								unlockingStageId === 1 ? "犯人の住んでいるマンション名" :
-								unlockingStageId === 2 ? "" :
-								unlockingStageId === 3 ? "" :
+								unlockingStageId === 2 ? "△△で〇〇" :
+								unlockingStageId === 3 ? "張り紙のキーワード" :
 								"キーワードを入力してください"
 							}
 							onSubmit={handleUnlock}

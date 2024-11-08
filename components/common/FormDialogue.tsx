@@ -19,6 +19,7 @@ export const FormDialogue: React.FC<FormDialogueProps> = ({
 	text,
 	formName,
 	formPlaceholder,
+	hint,
 	answer,
 	onClear,
 }) => {
@@ -39,7 +40,7 @@ export const FormDialogue: React.FC<FormDialogueProps> = ({
 			setIsCleared(true);
 			onClear();
 		} else {
-			alert("不正解です。もう一度試してください。");
+			alert(`不正解です。もう一度試してください。`);
 		}
 	};
 
@@ -51,9 +52,12 @@ export const FormDialogue: React.FC<FormDialogueProps> = ({
 			</p>
 			<div className="text-white text-left">
 				{isCleared ? (
-					<p>答え: {answer}</p>
+					<p>{answer}で正解です。</p>
 				) : (
-					<FormInput placeholder={formPlaceholder} onSubmit={handleSubmit} />
+					<>
+						{hint && <p>ヒント：{hint}</p>}
+						<FormInput placeholder={formPlaceholder} onSubmit={handleSubmit} />
+					</>
 				)}
 			</div>
 		</div>
