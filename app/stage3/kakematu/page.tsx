@@ -26,7 +26,7 @@ export default function Page() {
 			type: "image",
 			name: "兼松先生",
 			text: "そうなのね。確かにここにあるわ。（紙の切れ端を渡す）…どう使うつもりかわからないけど、不必要なものだからあげるよ。",
-			imageUrls: [""],
+			imageUrls: ["/69.png"],
 		},
 		{
 			type: "text",

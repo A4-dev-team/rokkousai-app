@@ -32,7 +32,7 @@ export function View1() {
 			type: "image",
 			name: "大家",
 			text: "警察が？それは大変ね…大学生はよくいるけど、隣同士の部屋には住んでないわね…もしよかったら部屋の番号を教えてもらえたら、一緒についていくことは可能ですよ…これがマンションの部屋になります。",
-			imageUrls: ["https://storage.googleapis.com/abehiroshibot/room.jpg"],
+			imageUrls: ["/rental-rooms.png"],
 		},
 		{
 			type: "form",
@@ -41,7 +41,7 @@ export function View1() {
 			formName: "room302",
 			formPlaceholder: "部屋番号を入力してください",
 			answer: "302",
-			hint: "3桁の部屋番号を入力してください",
+			hint: "他の住人やSHINDAI HUB 賃貸の口コミ情報を参考にしてください。",
 			onClear: () => console.log("クリアされました！"),
 		},
 		//正解のモーダル　もしくは　不正解のモーダルが表示される。正解の場合は
@@ -68,7 +68,7 @@ export function View1() {
 		{
 			type: "text",
 			name: "ナレーション",
-			text: "（主人公は正しい部屋番号を伝え、大家の信頼を得ることができた。302号室へのアクセスが可能になった。）",
+			text: "（主人公は正しい部屋番号を伝え、大家の信頼を得ることができた。302号室へのアクセスが可能になった。3階に行ってみよう！）",
 		},
 	];
 

@@ -46,7 +46,7 @@ export default function Page() {
 			type: "image",
 			name: "松本",
 			text: "ええ、ずっと保管してました。（バッグから少し折れた紙を取り出す）…これです。先輩がいなくなってからも誰も訪ねて来なかったので、ずっと持っていたんです。",
-			imageUrls: [""],
+			imageUrls: ["/e-gohan.png"],
 		},
 		{
 			type: "text",
