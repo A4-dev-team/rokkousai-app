@@ -20,7 +20,6 @@ export const FormDialogue: React.FC<FormDialogueProps> = ({
 	formName,
 	formPlaceholder,
 	answer,
-	hint,
 	onClear,
 }) => {
 	const [isCleared, setIsCleared] = useState<boolean>(false);
