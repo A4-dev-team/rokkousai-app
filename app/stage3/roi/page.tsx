@@ -36,8 +36,8 @@ export default function Page() {
 		{
 			type: "image",
 			name: "ロイ先生",
-			text: "ああ、そういえば…君のような学生が来たら、渡せと言われたものがもう1枚...（別の紙を取り出す）",
-			imageUrls: ["/65.png"],
+			text: "ああ、そういえば…君のような学生が来たら、渡せと言われたものがあと2枚...（別の紙を取り出す）",
+			imageUrls: ["/65.png", "/81.png"],
 		},
 		{
 			type: "text",
