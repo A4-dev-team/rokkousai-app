@@ -46,7 +46,7 @@ export function View2() {
 			type: "image",
 			name: "安井",
 			text: "これです。封筒の表には、やけに古びた字体で名前が書かれていて、中には紙が数枚入っていましたよ。",
-			imageUrls: ["https://storage.googleapis.com/abehiroshibot/envelope.jpg"],
+			imageUrls: ["/5.png", "/6.png", "/7.png", "/8.png", "/9.png"],
 		},
 		{
 			type: "text",
@@ -56,7 +56,7 @@ export function View2() {
 		{
 			type: "text",
 			name: "ナレーション",
-			text: "（主人公は安井に礼を言い、封筒の中身を持ち帰り、新たな謎を解き明かすために動き出す）",
+			text: "（主人公は安井に礼を言い、封筒の中身を持ち帰り、謎を解き明かすために動き出す）",
 		},
 	];
 
