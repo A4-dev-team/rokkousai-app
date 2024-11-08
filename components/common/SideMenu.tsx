@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaBars, FaLock, FaTimes } from "react-icons/fa";
 import { VscTriangleDown, VscTriangleRight } from "react-icons/vsc";
+import SuccessModal from "./SuccessModal";
 
 type StageMenuItem = {
 	stageId: number;
@@ -91,6 +92,9 @@ export default function SideMenu() {
 	const [expandedStageId, setExpandedStageId] = useState<number | null>(null);
 	const [unlockingStageId, setUnlockingStageId] = useState<number | null>(null);
 
+	const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
 	const isStageAccessible = (stageId: number) => {
 		if (stageId === 1) {
 			return stage1Accessible === "true";
@@ -118,23 +122,28 @@ export default function SideMenu() {
 		}
 		if (unlockingStageId === 1 && value === "A4マンション") {
 			setUnlockingStageId(null);
-			return setStage1Accessible("true");
+			setStage1Accessible("true");
+			setSuccessMessage("Stage1「賃貸」が解除されました！");
+			setShowSuccessModal(true);
+			return;
 		}
 		if (unlockingStageId === 2 && value === "かみ食堂でMEAL") {
 			setUnlockingStageId(null);
-			return setStage2Accessible("true");
+			setStage2Accessible("true");
+			setSuccessMessage("Stage2「えーごはん」が解除されました！");
+			setShowSuccessModal(true);
+			return;
 		}
 		if (unlockingStageId === 3 && value === "大学") {
 			setUnlockingStageId(null);
-			return setStage3Accessible("true");
+			setStage3Accessible("true");
+			setSuccessMessage("Stage3「授業・学内マップ」が解除されました！");
+			setShowSuccessModal(true);
+			return;
 		}
 
 		// unlockingStageIdごとのエラーメッセージを追加
-    if (unlockingStageId === 1) {
-			alert("キーワードが間違っています。ヒントは「徒歩1分」です");
-		} else if (unlockingStageId === 2) {
-			alert("キーワードが間違っています。");
-		} else if (unlockingStageId === 3) {
+    if (unlockingStageId !== null) {
 			alert("キーワードが間違っています");
 		}
 	};
@@ -147,7 +156,7 @@ export default function SideMenu() {
 				className="p-4 focus:outline-none"
 				onClick={() => setIsOpen(!isOpen)}
 			>
-				{!isOpen && <FaBars className="text-black" size="1.5rem" />}
+				{!isOpen && <FaBars className="text-white" size="1.5rem" />}
 			</button>
 
 			{isOpen && (
@@ -232,6 +241,11 @@ export default function SideMenu() {
 					</div>
 				</div>
 			)}
+			<SuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        message={successMessage}
+      />
 		</div>
 	);
 }

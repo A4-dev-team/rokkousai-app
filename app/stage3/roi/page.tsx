@@ -26,7 +26,7 @@ export default function Page() {
 			type: "image",
 			name: "ロイ先生",
 			text: "ほう、紙の切れ端ね。これのことかな？（ポケットから切れ端を取り出す）",
-			imageUrls: [""],
+			imageUrls: ["/67.png"],
 		},
 		{
 			type: "text",
@@ -34,9 +34,10 @@ export default function Page() {
 			text: "ありがとうございます！あと、もし他にも何か関連する紙があれば…",
 		},
 		{
-			type: "text",
+			type: "image",
 			name: "ロイ先生",
-			text: "ああ、そういえば…（机から別の紙を取り出す）これも役に立つかもしれないね。大事に持っていきなさい。",
+			text: "ああ、そういえば…君のような学生が来たら、渡せと言われたものがもう1枚...（別の紙を取り出す）",
+			imageUrls: ["/65.png"],
 		},
 		{
 			type: "text",

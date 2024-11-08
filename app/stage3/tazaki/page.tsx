@@ -26,7 +26,7 @@ export default function Page() {
 			type: "image",
 			name: "田崎先生",
 			text: "なるほど、これのことかな。（机から紙の切れ端を取り出して渡す）",
-			imageUrls: [""],
+			imageUrls: ["/68.png"],
 		},
 		{
 			type: "text",
