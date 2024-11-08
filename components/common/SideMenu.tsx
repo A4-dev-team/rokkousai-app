@@ -64,7 +64,7 @@ const stageMenuItems: StageMenuItem[] = [
 				href: "https://kobe-uni-hub.vercel.app/campus-map",
 			},
 			{ name: "学生便覧", 
-				href: "/stage3/2025_Zyochi" 
+				href: "/2025_Zyochi" 
 			},
 			{ name: "ヒント用LINE", 
 				href: "https://lin.ee/3fs2lU1"
@@ -139,7 +139,7 @@ export default function SideMenu() {
 				className="p-4 focus:outline-none"
 				onClick={() => setIsOpen(!isOpen)}
 			>
-				{!isOpen && <FaBars className="text-black" />}
+				{!isOpen && <FaBars className="text-black" size="1.5rem" />}
 			</button>
 
 			{isOpen && (
@@ -213,7 +213,12 @@ export default function SideMenu() {
 							</button>
 						</div>
 						<FormInput
-							placeholder="キーワードを入力してください"
+							placeholder={
+								unlockingStageId === 1 ? "犯人の住んでいるマンション名" :
+								unlockingStageId === 2 ? "" :
+								unlockingStageId === 3 ? "" :
+								"キーワードを入力してください"
+							}
 							onSubmit={handleUnlock}
 						/>
 					</div>
