@@ -26,7 +26,7 @@ const stageMenuItems: StageMenuItem[] = [
 			{ name: "4階", href: "/stage1/4th-floor" },
 			{
 				name: "SHINDAI HUB 賃貸",
-				href: "https://shindaihub-rentalhouse.glide.page/",
+				href: "https://shindaihub-house.glide.page/",
 			},
 		],
 	},
