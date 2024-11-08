@@ -67,7 +67,7 @@ const itemMenuItems = [
 
 export default function SideMenu() {
 	const [stage1Accessible, setStage1Accessible] = useLocalStorage(
-		"stage3Accessible",
+		"stage1Accessible",
 		"",
 	);
 	const [stage2Accessible, setStage2Accessible] = useLocalStorage(
@@ -136,7 +136,7 @@ export default function SideMenu() {
 
 			{/* サイドメニュー */}
 			{isOpen && (
-				<aside className="flex flex-col w-64 min-h-screen p-6 gap-6 bg-gray-900 text-white shadow-lg absolute top-0 left-0 z-50">
+				<aside className="flex flex-col w-80 min-h-screen p-6 gap-6 bg-gray-900 text-white shadow-lg absolute top-0 left-0 z-50">
 					<div className="flex justify-between items-center">
 						<h2 className="text-xl font-bold text-gray-300">MENU</h2>
 						<button type="button" onClick={() => setIsOpen(!isOpen)}>
