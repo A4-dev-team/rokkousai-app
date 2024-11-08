@@ -5,7 +5,7 @@ import {
 } from "@/components/common/DialogueController";
 import { ScrollableChatWindow } from "@/components/common/ScrollableChatWindow";
 
-export function Page() {
+export default function Page() {
 	const dialogues: DialogueProps[] = [
 		{
 			type: "text",
@@ -43,5 +43,3 @@ export function Page() {
 		</div>
 	);
 }
-
-export default Page;
