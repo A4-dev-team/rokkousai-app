@@ -64,7 +64,7 @@ const stageMenuItems: StageMenuItem[] = [
 				href: "https://kobe-uni-hub.vercel.app/campus-map",
 			},
 			{ name: "学生便覧", 
-				href: "/stage3/2025_Zyochi" 
+				href: "/2025_Zyochi" 
 			},
 			{ name: "ヒント用LINE", 
 				href: "https://lin.ee/3fs2lU1"
