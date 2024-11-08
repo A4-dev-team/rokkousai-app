@@ -16,7 +16,7 @@ export function CommonLayout(props: CommonLayoutProps) {
 
 			{/* メインコンテンツを画面全体に表示 */}
 			<div className="flex justify-center h-full flex-1 ">
-				<div className="max-w-md w-full shadow-lg text-center">{children}</div>
+				<div className="w-full shadow-lg text-center">{children}</div>
 			</div>
 		</div>
 	);
