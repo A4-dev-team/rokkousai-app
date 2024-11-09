@@ -33,6 +33,11 @@ export default function Page() {
 			name: "主人公",
 			text: "ありがとうございます。",
 		},
+		{
+			type: "text",
+			name: "兼松先生",
+			text: "あと、ポスターの場所はLINEで「ポスター」と送ればでてくるらしいよ。",
+		},
 	];
 
 	return (
