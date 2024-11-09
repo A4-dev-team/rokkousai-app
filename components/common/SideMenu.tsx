@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FaLock, FaTimes } from "react-icons/fa";
 import { VscTriangleDown, VscTriangleRight } from "react-icons/vsc";
 import SuccessModal from "./SuccessModal";
+import { useEffect } from "react";
 
 type StageMenuItem = {
 	stageId: number;
@@ -77,16 +78,22 @@ const stageMenuItems: StageMenuItem[] = [
 export default function SideMenu() {
 	const [stage1Accessible, setStage1Accessible] = useLocalStorage(
 		"stage1Accessible",
-		"",
+		"false",
 	);
 	const [stage2Accessible, setStage2Accessible] = useLocalStorage(
 		"stage2Accessible",
-		"",
+		"false",
 	);
 	const [stage3Accessible, setStage3Accessible] = useLocalStorage(
 		"stage3Accessible",
-		"",
+		"false",
 	);
+
+	useEffect(() => {
+		setStage1Accessible(localStorage.getItem("stage1Accessible") || "false");
+		setStage2Accessible(localStorage.getItem("stage2Accessible") || "false");
+		setStage3Accessible(localStorage.getItem("stage3Accessible") || "false");
+	}, [stage1Accessible, stage2Accessible, stage3Accessible]);
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [expandedStageId, setExpandedStageId] = useState<number | null>(null);
@@ -95,32 +102,45 @@ export default function SideMenu() {
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
+	// ステージアクセス権チェックのデバッグログ
 	const isStageAccessible = (stageId: number) => {
+		console.log(`Checking access for Stage ${stageId}`);
 		if (stageId === 1) {
+			console.log(`Stage 1 accessible: ${stage1Accessible}`);
 			return stage1Accessible === "true";
 		}
 		if (stageId === 2) {
+			console.log(`Stage 2 accessible: ${stage2Accessible}`);
 			return stage2Accessible === "true";
 		}
 		if (stageId === 3) {
+			console.log(`Stage 3 accessible: ${stage3Accessible}`);
 			return stage3Accessible === "true";
 		}
 		return true;
 	};
 
+	// ステージアイテムクリック時のデバッグログ
 	const handleClickStageItem = (stageId: number) => {
+		console.log(`Clicked on stage ${stageId}`);
 		if (isStageAccessible(stageId)) {
+			console.log(`Stage ${stageId} is accessible. Expanding.`);
 			setExpandedStageId((prev) => (prev === stageId ? null : stageId));
 		} else {
+			console.log(`Stage ${stageId} is not accessible. Unlocking.`);
 			setUnlockingStageId(stageId);
 		}
 	};
 
+	// ロック解除時のデバッグログ
 	const handleUnlock = (value: string) => {
+		console.log(`Attempting to unlock stage ${unlockingStageId} with value: ${value}`);
 		if (unlockingStageId === null) {
+			console.log("No stage to unlock.");
 			return;
 		}
 		if (unlockingStageId === 1 && value === "A4マンション") {
+			console.log("Unlocking Stage1: 賃貸");
 			setUnlockingStageId(null);
 			setStage1Accessible("true");
 			setSuccessMessage("Stage1「賃貸」が解除されました！タップして各階を回ってみましょう！");
@@ -128,6 +148,7 @@ export default function SideMenu() {
 			return;
 		}
 		if (unlockingStageId === 2 && value === "かみ食堂でMEAL") {
+			console.log("Unlocking Stage2: えーごはん");
 			setUnlockingStageId(null);
 			setStage2Accessible("true");
 			setSuccessMessage("Stage2「えーごはん」が解除されました！");
@@ -135,6 +156,7 @@ export default function SideMenu() {
 			return;
 		}
 		if (unlockingStageId === 3 && value === "大学") {
+			console.log("Unlocking Stage3: 授業・学内マップ");
 			setUnlockingStageId(null);
 			setStage3Accessible("true");
 			setSuccessMessage("Stage3「授業・学内マップ」が解除されました！");
@@ -142,8 +164,9 @@ export default function SideMenu() {
 			return;
 		}
 
-		// unlockingStageIdごとのエラーメッセージを追加
-    if (unlockingStageId !== null) {
+		// ロック解除失敗時のデバッグログ
+		console.log("Keyword incorrect, please try again.");
+		if (unlockingStageId !== null) {
 			alert("キーワードが間違っています");
 		}
 	};
@@ -154,7 +177,10 @@ export default function SideMenu() {
 			<button
 				type="button"
 				className="p-4 focus:outline-none"
-				onClick={() => setIsOpen(!isOpen)}
+				onClick={() => {
+					console.log("Toggling menu visibility");
+					setIsOpen(!isOpen);
+				}}
 			>
 				{!isOpen && (<p className="text-gray-100 text-2xl">メニュー</p>)}
 			</button>
@@ -203,7 +229,7 @@ export default function SideMenu() {
 																			<li className="text-gray-300 hover:text-white transition duration-150 cursor-pointer my-2">
 																				{item.name}
 																			</li>
-																	</Link>
+																		</Link>
 																))}
 														</ul>
 												)}
@@ -229,12 +255,7 @@ export default function SideMenu() {
 							</button>
 						</div>
 						<FormInput
-							placeholder={
-								unlockingStageId === 1 ? "犯人の住んでいるマンション名" :
-								unlockingStageId === 2 ? "△△で〇〇" :
-								unlockingStageId === 3 ? "張り紙のキーワード" :
-								"キーワードを入力してください"
-							}
+							placeholder={unlockingStageId === 1 ? "犯人の住んでいるマンション名" : unlockingStageId === 2 ? "△△で〇〇" : unlockingStageId === 3 ? "張り紙のキーワード" : "キーワードを入力してください"}
 							onSubmit={handleUnlock}
 						/>
 					</div>
