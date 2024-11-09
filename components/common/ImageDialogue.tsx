@@ -6,25 +6,15 @@ export interface ImageDialogueProps {
 	name: string;
 	text: string;
 	imageUrls: string[];
+  onOpenModal: (url: string) => void; // 追加
 }
 
 export const ImageDialogue: React.FC<ImageDialogueProps> = ({
   name,
   text,
   imageUrls,
+  onOpenModal, // 追加
 }) => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  // モーダルを開く関数
-  const openModal = (url: string) => {
-    setSelectedImage(url);
-  };
-
-  // モーダルを閉じる関数
-  const closeModal = () => {
-    setSelectedImage(null);
-  };
-
   return (
     <div>
       <h2 className="text-white text-2xl font-bold mb-4 text-left">{name}</h2>
@@ -39,33 +29,10 @@ export const ImageDialogue: React.FC<ImageDialogueProps> = ({
             src={url}
             alt={`${name}の画像${index + 1}`}
             className="w-4/12 h-auto rounded-md cursor-pointer"
-            onClick={() => openModal(url)} // 画像クリックでモーダルを開く
+            onClick={() => onOpenModal(url)} // クリックでモーダルを開く
           />
         ))}
       </div>
-
-      {/* モーダル */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-20 h-screen w-screen overflow-visible"
-          onClick={closeModal} // 背景クリックでモーダルを閉じる
-        >
-          <div className="relative">
-            <img
-              src={selectedImage}
-              alt="拡大画像"
-              className="max-w-full max-h-full rounded-md"
-            />
-            <IoIosCloseCircle
-              className="absolute top-2 right-2 text-gray-500 text-4xl cursor-pointer"
-              onClick={(e) => {
-                e.stopPropagation();
-                closeModal();
-              }}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 };

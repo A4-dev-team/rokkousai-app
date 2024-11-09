@@ -11,10 +11,11 @@ export type DialogueProps =
 
 interface DialogueControllerProps {
 	dialogues: DialogueProps[];
+	onOpenImageModal: (url: string) => void;
 }
 
 export function DialogueController(props: DialogueControllerProps) {
-	const { dialogues } = props;
+	const { dialogues, onOpenImageModal } = props;
 
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [isQuestionCleared, setIsQuestionCleared] = useState(false);
@@ -55,6 +56,7 @@ export function DialogueController(props: DialogueControllerProps) {
 					name={dialogue.name}
 					text={dialogue.text}
 					imageUrls={dialogue.imageUrls}
+					onOpenModal={onOpenImageModal}
 				/>
 			);
 		}
