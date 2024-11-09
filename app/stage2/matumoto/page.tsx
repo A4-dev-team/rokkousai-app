@@ -50,7 +50,7 @@ export default function Page() {
 			type: "image",
 			name: "松本",
 			text: "ええ、ずっと保管してました。（バッグから少し折れた紙を取り出す）…これです。先輩がいなくなってからも誰も訪ねて来なかったので、ずっと持っていたんです。",
-			imageUrls: ["/e-gohan.png"],
+			imageUrls: ["/17.png"],
 			onOpenModal: (url: string) => setSelectedImage(url),
 		},
 		{
