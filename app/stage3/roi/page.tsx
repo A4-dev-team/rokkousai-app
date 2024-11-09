@@ -37,7 +37,7 @@ export default function Page() {
 			type: "image",
 			name: "ロイ先生",
 			text: "ああ、そういえば…君のような学生が来たら、渡せと言われたものがあと2枚...（別の紙を取り出す）※拡大画像がうまく表示できない可能性があります。その場合はLINEで「別の紙切れ」と送ってください。",
-			imageUrls: ["/65.png", "/81.png"],
+			imageUrls: ["/65.png", "/81.png", "/99.png"],
 		},
 		{
 			type: "text",
