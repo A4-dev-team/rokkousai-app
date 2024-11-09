@@ -4,8 +4,12 @@ import {
 	DialogueController,
 } from "@/components/common/DialogueController";
 import { ScrollableChatWindow } from "@/components/common/ScrollableChatWindow";
+import { useState } from "react";
+import ImageModal from "@/components/common/ImageModal";
 
 export default function Page() {
+	const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
 	const dialogues: DialogueProps[] = [
 		{
 			type: "text",
@@ -27,6 +31,7 @@ export default function Page() {
 			name: "水島先生",
 			text: "あーあれのことか、全くある日、ポケットに入っていたんだ。生徒のいたずらだと思っていたが…（紙の切れ端を取り出す）これかね？※拡大画像がうまく表示できない可能性があります。その場合はLINEで「紙切れ2」と送ってください。",
 			imageUrls: ["/70.png"],
+			onOpenModal: (url: string) => setSelectedImage(url),
 		},
 		{
 			type: "text",
@@ -35,11 +40,22 @@ export default function Page() {
 		},
 	];
 
+	const openModal = (url: string) => {
+    setSelectedImage(url);
+  };
+
+	const closeModal = () => {
+    setSelectedImage(null);
+  };
+
 	return (
 		<div className="h-full flex flex-col justify-end">
 			<ScrollableChatWindow>
-				<DialogueController dialogues={dialogues} />
+				<DialogueController dialogues={dialogues} onOpenImageModal={openModal}/>
 			</ScrollableChatWindow>
+			{selectedImage && (
+        <ImageModal selectedImage={selectedImage} closeModal={closeModal} />
+      )}
 		</div>
 	);
 }

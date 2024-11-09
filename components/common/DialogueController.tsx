@@ -11,7 +11,7 @@ export type DialogueProps =
 
 interface DialogueControllerProps {
 	dialogues: DialogueProps[];
-	onOpenImageModal: (url: string) => void;
+	onOpenImageModal?: (url: string) => void;
 }
 
 export function DialogueController(props: DialogueControllerProps) {
@@ -50,6 +50,10 @@ export function DialogueController(props: DialogueControllerProps) {
 			);
 		}
 		if (dialogue.type === "image") {
+			if (!onOpenImageModal) {
+				return null;
+			}
+
 			return (
 				<ImageDialogue
 					type={dialogue.type}

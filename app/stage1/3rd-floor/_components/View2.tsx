@@ -4,8 +4,12 @@ import {
 	type DialogueProps,
 	DialogueController,
 } from "@/components/common/DialogueController";
+import ImageModal from "@/components/common/ImageModal";
+import { useState } from "react";
 
 export function View2() {
+	const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
 	const dialogues: DialogueProps[] = [
 		{
 			type: "text",
@@ -47,6 +51,7 @@ export function View2() {
 			name: "安井",
 			text: "これです。封筒の表には、やけに古びた字体で名前が書かれていて、中には紙が数枚入っていましたよ。※拡大画像がうまく表示できない可能性があります。その場合はLINEで「封筒」と送ってください。",
 			imageUrls: ["/5.png", "/6.png", "/7.png", "/8.png", "/9.png"],
+			onOpenModal: (url: string) => setSelectedImage(url),
 		},
 		{
 			type: "text",
@@ -60,13 +65,22 @@ export function View2() {
 		},
 	];
 
+	const openModal = (url: string) => {
+    setSelectedImage(url);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
 	return (
-		<div className="h-full w-full absolute bg-[url('/rental-yasui.png')] bg-cover bg-center">
-      <div className="h-full flex flex-col justify-end">
-				<ScrollableChatWindow>
-					<DialogueController dialogues={dialogues} />
-				</ScrollableChatWindow>
-			</div>
-    </div>
+		<div className="h-full flex flex-col justify-end">
+			<ScrollableChatWindow>
+				<DialogueController dialogues={dialogues} onOpenImageModal={openModal}/>
+			</ScrollableChatWindow>
+			{selectedImage && (
+        <ImageModal selectedImage={selectedImage} closeModal={closeModal} />
+      )}
+		</div>
 	);
 }
