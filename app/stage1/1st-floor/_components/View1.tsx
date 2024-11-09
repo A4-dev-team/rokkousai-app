@@ -3,9 +3,13 @@ import {
 	DialogueController,
 	type DialogueProps,
 } from "@/components/common/DialogueController";
+import ImageModal from "@/components/common/ImageModal";
 import { ScrollableChatWindow } from "@/components/common/ScrollableChatWindow";
+import { useState } from "react";
 
 export function View1() {
+	const [selectedImage, setSelectedImage] = useState<string | null>(null); // 追加
+
 	const dialogues: DialogueProps[] = [
 		{
 			type: "text",
@@ -33,6 +37,7 @@ export function View1() {
 			name: "大家",
 			text: "警察が？それは大変ね…大学生はよくいるけど、隣同士の部屋には住んでないわね…もしよかったら部屋の番号を教えてもらえたら、一緒についていくことは可能ですよ…これがマンションの部屋になります。※拡大画像がうまく表示できない可能性があります。その場合はLINEで「部屋割り」と送ってください。",
 			imageUrls: ["/rental-rooms.png"],
+			onOpenModal: (url: string) => setSelectedImage(url),
 		},
 		{
 			type: "form",
@@ -72,11 +77,22 @@ export function View1() {
 		},
 	];
 
+	const openModal = (url: string) => {
+    setSelectedImage(url);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
 	return (
 		<div className="h-full flex flex-col justify-end">
 			<ScrollableChatWindow>
-				<DialogueController dialogues={dialogues} />
+				<DialogueController dialogues={dialogues} onOpenImageModal={openModal}/>
 			</ScrollableChatWindow>
+			{selectedImage && (
+        <ImageModal selectedImage={selectedImage} closeModal={closeModal} />
+      )}
 		</div>
 	);
 }
