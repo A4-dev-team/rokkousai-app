@@ -31,7 +31,7 @@ export default function Home() {
 					<p className="text-start">
 	アプリのURLに飛んで、左上のメニューから、アイテムのSHINDAI HUB 賃貸を使って、犯人が住んでいる賃貸を見つけ出せ！
 	そして、Stage1のロックを解除しよう。
-	解除の暗号は"犯人が住んでいるマンションの名前"らしい。</p>
+	解除の暗号は&quot;犯人が住んでいるマンションの名前&quot;らしい。</p>
 				</div>
     	</div>
     </div>
