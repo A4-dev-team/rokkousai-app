@@ -3,7 +3,7 @@ import { FormInput } from "@/components/common/FormInput";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import Link from "next/link";
 import { useState } from "react";
-import { FaBars, FaLock, FaTimes } from "react-icons/fa";
+import { FaLock, FaTimes } from "react-icons/fa";
 import { VscTriangleDown, VscTriangleRight } from "react-icons/vsc";
 import SuccessModal from "./SuccessModal";
 
