@@ -31,7 +31,7 @@ export function View1() {
 		{
 			type: "image",
 			name: "大家",
-			text: "警察が？それは大変ね…大学生はよくいるけど、隣同士の部屋には住んでないわね…もしよかったら部屋の番号を教えてもらえたら、一緒についていくことは可能ですよ…これがマンションの部屋になります。",
+			text: "警察が？それは大変ね…大学生はよくいるけど、隣同士の部屋には住んでないわね…もしよかったら部屋の番号を教えてもらえたら、一緒についていくことは可能ですよ…これがマンションの部屋になります。※拡大画像がうまく表示できない可能性があります。その場合はLINEで「部屋割り」と送ってください。",
 			imageUrls: ["/rental-rooms.png"],
 		},
 		{
@@ -73,10 +73,12 @@ export function View1() {
 	];
 
 	return (
-		<div className="h-full flex flex-col justify-end">
-			<ScrollableChatWindow>
-				<DialogueController dialogues={dialogues} />
-			</ScrollableChatWindow>
+		<div className="h-full relative">
+			<div className="relative h-full flex flex-col justify-end z-50">
+				<ScrollableChatWindow>
+					<DialogueController dialogues={dialogues} />
+				</ScrollableChatWindow>
+			</div>
 		</div>
 	);
 }
