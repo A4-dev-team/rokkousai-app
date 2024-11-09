@@ -35,6 +35,7 @@ const stageMenuItems: StageMenuItem[] = [
 			{ name: "店長", href: "/stage2/manager" },
 			{ name: "上田", href: "/stage2/ueda" },
 			{ name: "松本", href: "/stage2/matumoto" },
+			{ name: "えーごはん", href: "https://shindaihub-meal.vercel.app/restaurants"},
 		],
 	},
 	{
@@ -45,20 +46,6 @@ const stageMenuItems: StageMenuItem[] = [
 			{ name: "水島先生", href: "/stage3/mizusima" },
 			{ name: "兼松先生", href: "/stage3/kakematu" },
 			{ name: "田崎先生", href: "/stage3/tazaki" },
-		],
-	},
-	{
-		stageId: 99,
-		stageName: "アイテム",
-		scenes: [
-			{
-				name: "SHINDAI HUB 賃貸",
-				href: "https://shindaihub-rentalhouse.glide.page/",
-			},
-			{
-				name: "えーごはん",
-				href: "https://shindaihub-meal.vercel.app/restaurants",
-			},
 			{ name: "SHINDAI HUB 授業", 
 				href: "https://shindaihub-class.glide.page/" },
 			{
@@ -67,6 +54,16 @@ const stageMenuItems: StageMenuItem[] = [
 			},
 			{ name: "学生便覧", 
 				href: "/2025_Zyochi" 
+			},
+		],
+	},
+	{
+		stageId: 99,
+		stageName: "初期アイテム",
+		scenes: [
+			{
+				name: "SHINDAI HUB 賃貸",
+				href: "https://shindaihub-rentalhouse.glide.page/",
 			},
 			{ name: "ヒント用LINE", 
 				href: "https://lin.ee/3fs2lU1"
@@ -143,7 +140,7 @@ export default function SideMenu() {
 			console.log("Unlocking Stage1: 賃貸");
 			setUnlockingStageId(null);
 			setStage1Accessible("true");
-			setSuccessMessage("Stage1「賃貸」が解除されました！タップして各階を回ってみましょう！");
+			setSuccessMessage("Stage1「賃貸」が解除されました！Stage1をタップして1階から4階まで回ってみましょう！");
 			setShowSuccessModal(true);
 			return;
 		}
