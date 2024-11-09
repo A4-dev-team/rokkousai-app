@@ -50,7 +50,7 @@ export const ImageDialogue: React.FC<ImageDialogueProps> = ({
           className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50"
           onClick={closeModal} // 背景クリックでモーダルを閉じる
         >
-          <div className="relative">
+          <div className="relative z-50">
             <img
               src={selectedImage}
               alt="拡大画像"
