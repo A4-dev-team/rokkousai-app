@@ -123,7 +123,7 @@ export default function SideMenu() {
 		if (unlockingStageId === 1 && value === "A4マンション") {
 			setUnlockingStageId(null);
 			setStage1Accessible("true");
-			setSuccessMessage("Stage1「賃貸」が解除されました！");
+			setSuccessMessage("Stage1「賃貸」が解除されました！タップして各階を回ってみましょう！");
 			setShowSuccessModal(true);
 			return;
 		}
@@ -156,7 +156,7 @@ export default function SideMenu() {
 				className="p-4 focus:outline-none"
 				onClick={() => setIsOpen(!isOpen)}
 			>
-				{!isOpen && <FaBars className="text-white" size="1.5rem" />}
+				{!isOpen && (<p className="text-gray-100 text-2xl">メニュー</p>)}
 			</button>
 
 			{isOpen && (
@@ -197,14 +197,13 @@ export default function SideMenu() {
 														</button>
 												</li>
 												{expandedStageId === stage.stageId && (
-														<ul className="ml-8 space-y-3 text-left">
+														<ul className="ml-8 space-y-2 text-left">
 																{stage.scenes.map((item) => (
-																		<li
-																				key={item.href}
-																				className="text-gray-300 hover:text-white transition duration-150"
-																		>
-																				<Link href={item.href}>{item.name}</Link>
-																		</li>
+																		<Link key={item.href} href={item.href} passHref>
+																			<li className="text-gray-300 hover:text-white transition duration-150 cursor-pointer my-2">
+																				{item.name}
+																			</li>
+																	</Link>
 																))}
 														</ul>
 												)}
