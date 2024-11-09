@@ -29,7 +29,7 @@ export default function Page() {
 		{
 			type: "image",
 			name: "田崎先生",
-			text: "なるほど、これのことかな。（机から紙の切れ端を取り出して渡す）※拡大画像がうまく表示できない可能性があります。その場合はLINEで「紙切れ4」と送ってください。",
+			text: "なるほど、これのことかな。（机から紙の切れ端を取り出して渡す）",
 			imageUrls: ["/68.png"],
 			onOpenModal: (url: string) => setSelectedImage(url),
 		},
