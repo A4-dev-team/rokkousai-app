@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { IoIosCloseCircle } from "react-icons/io";
+import React from "react";
 
 export interface ImageDialogueProps {
 	type: "image";
