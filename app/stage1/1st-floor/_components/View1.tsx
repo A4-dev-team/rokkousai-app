@@ -73,12 +73,10 @@ export function View1() {
 	];
 
 	return (
-		<div className="h-full relative">
-			<div className="relative h-full flex flex-col justify-end z-50">
-				<ScrollableChatWindow>
-					<DialogueController dialogues={dialogues} />
-				</ScrollableChatWindow>
-			</div>
+		<div className="h-full flex flex-col justify-end">
+			<ScrollableChatWindow>
+				<DialogueController dialogues={dialogues} />
+			</ScrollableChatWindow>
 		</div>
 	);
 }
