@@ -29,7 +29,7 @@ export default function Page() {
 		{
 			type: "image",
 			name: "水島先生",
-			text: "あーあれのことか、全くある日、ポケットに入っていたんだ。生徒のいたずらだと思っていたが…（紙の切れ端を取り出す）これかね？※拡大画像がうまく表示できない可能性があります。その場合はLINEで「紙切れ2」と送ってください。",
+			text: "あーあれのことか、全くある日、ポケットに入っていたんだ。生徒のいたずらだと思っていたが…（紙の切れ端を取り出す）これかね？",
 			imageUrls: ["/70.png"],
 			onOpenModal: (url: string) => setSelectedImage(url),
 		},

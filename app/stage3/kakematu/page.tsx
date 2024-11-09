@@ -28,7 +28,7 @@ export default function Page() {
 		{
 			type: "image",
 			name: "兼松先生",
-			text: "そうなのね。確かにここにあるわ。（紙の切れ端を渡す）…どう使うつもりかわからないけど、不必要なものだからあげるよ。※拡大画像がうまく表示できない可能性があります。その場合はLINEで「紙切れ3」と送ってください。",
+			text: "そうなのね。確かにここにあるわ。（紙の切れ端を渡す）…どう使うつもりかわからないけど、不必要なものだからあげるよ。",
 			imageUrls: ["/69.png"],
 			onOpenModal: (url: string) => setSelectedImage(url),
 		},
